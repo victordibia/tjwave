@@ -1,5 +1,5 @@
 # TJ Wave
-<img src="/images/tj.jpg" width="100%"> 
+<img src="/images/tj.jpg" width="100%">
 
 > Control the arm of your TJ Bot (using the embedded servo)  
 
@@ -73,7 +73,6 @@ Sample utterances are
 - rpio npm package : i/o library to control raspberry pi gpio pins.
 - web-audio-api : implementation (partial) of the HTML5 web audio api, used to decode sound files.
 - underscorejs : Quick and dirty functions for data manipulation
--
 
 ## License
 
