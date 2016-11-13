@@ -1,5 +1,5 @@
 var AudioContext = require('web-audio-api').AudioContext
-context = new AudioContext
+var context = new AudioContext
 var fs = require('fs')
 var exec = require('child_process').exec;
 var music ;
@@ -16,18 +16,17 @@ var softPWM ;
 initServo();
 
 var pcmdata = [] ;
-var soundfile = "sounds/no.wav"
+var soundfile = "sounds/club.wav"
 var threshodld = 0 ;
 var mincycle = 10; var maxcycle = 60 ;
 
+// Decode sound file
 decodeSoundFile();
 
 
 function dance(){
-
   playsound(soundfile);
   findPeaks(pcmdata, samplerate, threshold);
-
 }
 
 function decodeSoundFile(){
@@ -127,11 +126,10 @@ var colorPalette = {
     "white": 0xffffff,
     "on": 0xffffff
 }
-function setLED(val){
 
+function setLED(val){
     ws281x.init(NUM_LEDS);   // initialize LEDs
     var color = new Uint32Array(NUM_LEDS);  // array that stores colors for leds
-
     var colors = Object.keys(colorPalette);
     var randIdx = Math.floor(Math.random() * colors.length);
     var randColor = colors[randIdx];
@@ -139,7 +137,6 @@ function setLED(val){
     color[0] = colorPalette[randColor];
     ws281x.render(color);
     ws281x.setBrightness(val * 255)
-
 }
 
 
@@ -164,7 +161,6 @@ function getbars(val){
 }
 
 function playsound(soundfile){
-  //var create_audio = exec('ffplay -autoexit '+soundfile, function (error, stdout, stderr) {
   music = new Sound(soundfile);
   music.play();
   music.on('complete', function () {
