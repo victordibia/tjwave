@@ -190,7 +190,7 @@ function waveArm() {
 * Step #6: Convert Text to Speech and Play
 *********************************************************************
 */
-speak("testing speaking");
+
 function speak(textstring){
   micInstance.pause(); // pause the microphone while playing
   var params = {
