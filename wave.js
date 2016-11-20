@@ -15,11 +15,10 @@
 */
 
 /************************************************************************
-* Control a NeoPixel LED unit connected to a Raspberry Pi pin through voice commands
+* Control a NeoPixel LED unit and servo motor connected to a Raspberry Pi pin through voice commands
 * Must run with root-level protection
-* sudo node stt.js
+* sudo node wave.js
 
-Based on example NeoPixel code by Jeremy Garff (jer@jers.net)
 
 Follow the instructions in XXX to
 get the system ready to run this code.
@@ -35,8 +34,8 @@ The service converts the audio to text and saves the returned text in "textStrea
 var watson = require('watson-developer-cloud');
 var config = require('./config');  // gets our username and passwords from the config.js files
 var speech_to_text = watson.speech_to_text({
-  username: config.username,
-  password: config.password,
+  username: config.STTUsername,
+  password: config.STTPassword,
   version: config.version
 });
 

@@ -44,10 +44,11 @@ Set the audio output to your audio jack. For more audio channels, check the [con
     amixer cset numid=3 1    
     // This sets the audio output to option 1 which is your Pi's Audio Jack. Option 0 = Auto, Option 2 = HDMI. An alternative is to type sudo raspi-config and change the audio to 3.5mm audio jack.
 
-Update the Config file with your Bluemix credentials for all three Watson services.
+Rename the config_sample.js to config.js. Open config.js using your favorite text editor (e.g nano) and update it with your Bluemix credentials for the Watson services you use.
 
-    edit config.js
-    enter your watson usernames, passwords and versions.
+    cp config_sample.js config.js
+    nano config.js
+    # enter your watson usernames, passwords and versions.
 
 
 

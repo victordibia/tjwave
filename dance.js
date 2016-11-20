@@ -19,7 +19,7 @@ var pcmdata = [] ;
 var soundfile = "sounds/club.wav"
 var threshodld = 0 ;
 var mincycle = 10; var maxcycle = 60 ;
-
+var armcycle = mincycle ;
 // Decode sound file
 decodeSoundFile();
 
@@ -80,11 +80,11 @@ function findPeaks(pcmdata, samplerate, threshold){
     }
     if (above > 0) {
       console.log(getbars((avg/above).toFixed(2)), (avg/above).toFixed(2));
-      waveArm(mincycle) ;
+      waveArm() ;
       setLED((avg/above).toFixed(2))
     }else{
       console.log(getbars((avgall/step).toFixed(2)) );
-      waveArm(maxcycle) ;
+      waveArm() ;
       setLED((avgall/step).toFixed(2))
     }
 
@@ -107,8 +107,9 @@ function initServo(){
   });
 }
 
-function waveArm(dutyCycle) {
-  softPWM.write(dutyCycle);
+function waveArm() {
+  armcycle = armcycle == mincycle ? maxcycle : mincycle ;
+  softPWM.write(armcycle);
 }
 
 var ws281x = require('rpi-ws281x-native');

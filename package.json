@@ -15,8 +15,8 @@
     "raspi-io": "^6.1.1",
     "raspi-soft-pwm": "^1.0.1",
     "rpi-ws281x-native": "^0.8.1",
-    "rpio": "^0.9.12",
     "watson-developer-cloud": "^2.8.1",
+    "web-audio-api": "^0.2.2",
     "which": "^1.2.11"
   }
 }
