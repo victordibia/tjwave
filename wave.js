@@ -110,7 +110,7 @@ textStream.on('data', function(str) {
 });
 
 textStream.on('error', function(err) {
-  console.log(' ===== An Error has occurred ===== \nYou may have exceeded your payload quota.\n ' + JSON.stringify(err) + "\n Press <ctrl>+C to exit.") ; // handle errors
+  console.log(' ===== An Error has occurred ===== \nYou may have exceeded your payload quota.\n ' + JSON.stringify(err,null, 4) + "\n Press <ctrl>+C to exit.") ; // handle errors
 });
 
 function parseText(str){
@@ -154,7 +154,7 @@ var pcmdata = [] ;
 var soundfile = "sounds/no.wav"
 var threshodld = 0 ;
 var mincycle = 10; var maxcycle = 60 ;
-var music ;
+var music = new Sound("output.wav"); ;
 
 function initServo(){
   board.on('ready', function() {
@@ -163,8 +163,8 @@ function initServo(){
 
     this.on("exit", function() {
       console.log(" boarding exiting kill stuff")
-      music.pause();
-      music.stop();
+      //music.pause();
+      //music.stop();
     });
   });
 }
@@ -190,7 +190,7 @@ function waveArm() {
 * Step #6: Convert Text to Speech and Play
 *********************************************************************
 */
-
+speak("testing speaking")
 function speak(textstring){
   micInstance.pause(); // pause the microphone while playing
   var params = {
