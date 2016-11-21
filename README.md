@@ -3,7 +3,7 @@
 
 > Control the arm of your TJ Bot (using the embedded servo)  
 
-This module provides Node.js code to get control the arm on your TJ Bot via the servo motor. It uses [Watson Speech to Text](https://www.ibm.com/watson/developercloud/speech-to-text.html) to parse audio from the microphone, processes your commands and uses [Watson Text to Speech](https://www.ibm.com/watson/developercloud/text-to-speech.html) to "read" out this response!
+This module provides Node.js code to get control the arm on your TJ Bot via the servo motor. It uses [Watson Speech to Text](https://www.ibm.com/watson/developercloud/speech-to-text.html) to parse audio from the microphone, processes your commands (e.g command your bot to wave its arm, or dance to a song) and uses [Watson Text to Speech](https://www.ibm.com/watson/developercloud/text-to-speech.html) to "read" out a text response!
 
 **This will only run on the Raspberry Pi.**
 
@@ -44,11 +44,12 @@ Set the audio output to your audio jack. For more audio channels, check the [con
     amixer cset numid=3 1    
     // This sets the audio output to option 1 which is your Pi's Audio Jack. Option 0 = Auto, Option 2 = HDMI. An alternative is to type sudo raspi-config and change the audio to 3.5mm audio jack.
 
-Rename the config_sample.js file to config.js. Open config.js using your favorite text editor (e.g nano) and update it with your Bluemix credentials for the Watson services you use.
+Rename and update config.js
 
     cp config_sample.js config.js
     nano config.js
-    # enter your watson usernames, passwords and versions.
+
+    # Rename the config_sample.js file to config.js. Open config.js using your favorite text editor # (e.g // nano) and update it with your Bluemix credentials for the Watson services you use.
 
 
 
@@ -70,15 +71,11 @@ Sample utterances are
 # Dependencies List
 
 - Watson Developer Cloud - [Watson Speech to Text](https://www.ibm.com/watson/developercloud/speech-to-text.html), [Watson Conversation](https://www.ibm.com/watson/developercloud/conversation.html), and [Watson Text to Speech](https://www.ibm.com/watson/developercloud/text-to-speech.html).
-- mic npm package : for reading audio input
-- rpio npm package : i/o library to control raspberry pi gpio pins.
-- web-audio-api : implementation (partial) of the HTML5 web audio api, used to decode sound files.
-- underscorejs : Quick and dirty functions for data manipulation
+- [mic](https://www.npmjs.com/package/mic) npm package : for reading audio input
+- [raspi-soft-pwm](https://www.npmjs.com/package/raspi-soft-pwm) npm package : Provides access to Soft PWM on the Raspberry Pi.
+- [web-audio-api](https://www.npmjs.com/package/web-audio-api) : implementation (partial) of the HTML5 web audio api, used to decode sound files.
+- [underscorejs](https://www.npmjs.com/package/underscore) : functional programming helper library for data manipulation.
 
 ## License
 
-This library is licensed under Apache 2.0. Full license text is
-available in [LICENSE](../../LICENSE).
-
-## Contributing
-See [CONTRIBUTING.md](../../CONTRIBUTING.md).
+MIT License
