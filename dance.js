@@ -84,7 +84,7 @@ function findPeaks(pcmdata, samplerate, threshold){
       setLED((avg/above).toFixed(2))
     }else{
       console.log(getbars((avgall/step).toFixed(2)) );
-      waveArm() ;
+      //waveArm() ;
       setLED((avgall/step).toFixed(2))
     }
 
