@@ -38,6 +38,7 @@ Install ALSA tools (required for recording audio on Raspberry Pi)
 Install Dependencies
 
     npm install
+    # try 'sudo rm -rf node_modules'  and 'sudo npm install --unsafe-perm' if you run into errors installing dependencies
 
 Set the audio output to your audio jack. For more audio channels, check the [config guide. ](https://www.raspberrypi.org/documentation/configuration/audio-config.md)
 
