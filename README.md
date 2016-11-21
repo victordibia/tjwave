@@ -1,5 +1,5 @@
 # TJ Wave
-<img src="/images/tj.jpg" width="100%">
+<img src="/images/wave.gif" width="100%">
 
 > Control the arm of your TJ Bot (using the embedded servo)  
 
@@ -44,7 +44,7 @@ Set the audio output to your audio jack. For more audio channels, check the [con
     amixer cset numid=3 1    
     // This sets the audio output to option 1 which is your Pi's Audio Jack. Option 0 = Auto, Option 2 = HDMI. An alternative is to type sudo raspi-config and change the audio to 3.5mm audio jack.
 
-Rename the config_sample.js to config.js. Open config.js using your favorite text editor (e.g nano) and update it with your Bluemix credentials for the Watson services you use.
+Rename the config_sample.js file to config.js. Open config.js using your favorite text editor (e.g nano) and update it with your Bluemix credentials for the Watson services you use.
 
     cp config_sample.js config.js
     nano config.js
