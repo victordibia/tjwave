@@ -26,7 +26,7 @@ decodeSoundFile();
 
 function dance(){
   playsound(soundfile);
-  findPeaks(pcmdata, samplerate, threshold);
+  findPeaks(pcmdata, samplerate);
 }
 
 function decodeSoundFile(){
@@ -61,7 +61,7 @@ function decodeSoundFile(){
 
 
 
-function findPeaks(pcmdata, samplerate, threshold){
+function findPeaks(pcmdata, samplerate){
   var above= 0 ;
   var interval = 0.05 * 1000 ; index = 0 ; var timetaken = 0 ; avg = 0 ; avgall = 0;
   var step = Math.round( samplerate * (interval/1000) );
