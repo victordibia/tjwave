@@ -12,7 +12,7 @@ This module provides Node.js code to get control the arm on your TJ Bot via the 
 - Listens for voice commands
 - Sends audio from the microphone to the Watson Speech to Text Service - STT to transcribe [Watson Speech to Text](https://www.ibm.com/watson/developercloud/speech-to-text.html)
 - Parses the text looking for the attention words and commands
-- Once a command is recognized, an appropriate action is taken and TJ verbalizes this action as well using  [Watson Text to Speech](https://www.ibm.com/watson/developercloud/text-to-speech.html) to generate an audio file.
+- Once a command is recognized, an appropriate action (e.g wave arm) is taken and TJ verbalizes this action as well using  [Watson Text to Speech](https://www.ibm.com/watson/developercloud/text-to-speech.html) to generate an audio file.
 - The robot plays back the response through using the Alsa tools
 
 ##Hardware
