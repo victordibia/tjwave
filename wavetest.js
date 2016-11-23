@@ -17,10 +17,10 @@ var waveinterval = 500 ;
 var lightinterval = 500 ;
 var mincycle = 10; var maxcycle = 60 ;
 var dutycycle = mincycle;
-
+var softPWM ;
 // Init board, setup software PWM on pin 26.
 board.on('ready', function() {
-  var softPWM = new SoftPWM({pin: 'P1-26', range: 100, frequency: 200});
+  softPWM = new SoftPWM({pin: 'P1-26', range: 100, frequency: 200});
   launchWaveReturn();
 });
 
