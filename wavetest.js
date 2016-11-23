@@ -29,7 +29,7 @@ board.on('ready', function() {
 * Set a timer that waves the robot arm every X seconds
 * Alternate across two positions - mincylce and maxcycle.
 */
-launchWave(){
+function launchWave(){
   setInterval(function () {
     dutycycle = dutycycle == mincycle ? maxcycle:mincycle ;
     softPWM.write(dutycycle);
@@ -41,7 +41,7 @@ launchWave(){
 * Set a timer that waves the robot arm every X seconds
 * Set to max cylce each time but return to mincycle x seconds after
 */
-launchWaveReturn(){
+function launchWaveReturn(){
   setInterval(function () {
     softPWM.write(maxcycle);
     console.log(dutycycle);
