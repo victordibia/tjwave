@@ -13,7 +13,7 @@ var board = new five.Board({
 
 var ws281x = require('rpi-ws281x-native');
 var NUM_LEDS = 1;        // Number of LEDs
-var waveinterval = 500 ;
+var waveinterval = 1500 ;
 var lightinterval = 500 ;
 var mincycle = 10; var maxcycle = 60 ;
 var dutycycle = mincycle;
@@ -44,7 +44,7 @@ function launchWave(){
 function launchWaveReturn(){
   setInterval(function () {
     softPWM.write(maxcycle);
-    console.log(dutycycle);
+    console.log("set to",maxcycle);
     setTimeout(function(){
       console.log("reset to", mincycle)
         softPWM.write(mincycle);
