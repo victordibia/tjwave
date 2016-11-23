@@ -16,7 +16,7 @@ var softPWM ;
 initServo();
 
 var pcmdata = [] ;
-var soundfile = "sounds/tiger.wav"
+var soundfile = "sounds/club.wav"
 var threshodld = 0 ;
 var mincycle = 10; var maxcycle = 60 ;
 var armcycle = mincycle ;
