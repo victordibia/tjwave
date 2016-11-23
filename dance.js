@@ -16,7 +16,7 @@ var softPWM ;
 initServo();
 
 var pcmdata = [] ;
-var soundfile = "sounds/club.wav"
+var soundfile = "sounds/tiger.wav"
 var threshodld = 0 ;
 var mincycle = 10; var maxcycle = 60 ;
 var armcycle = mincycle ;
@@ -112,32 +112,32 @@ function waveArm() {
   softPWM.write(armcycle);
 }
 
-var ws281x = require('rpi-ws281x-native');
-var NUM_LEDS = 1;        // Number of LEDs
-var colorPalette = {
-    "red": 0x00ff00,
-    "read": 0x00ff00, // sometimes, STT hears "read" instead of "red"
-    "green": 0xff0000,
-    "blue": 0x0000ff,
-    "purple": 0x008080,
-    "yellow": 0xc1ff35,
-    "magenta": 0x00ffff,
-    "orange": 0xa5ff00,
-    "aqua": 0xff00ff,
-    "white": 0xffffff,
-    "on": 0xffffff
-}
+// var ws281x = require('rpi-ws281x-native');
+// var NUM_LEDS = 1;        // Number of LEDs
+// var colorPalette = {
+//     "red": 0x00ff00,
+//     "read": 0x00ff00, // sometimes, STT hears "read" instead of "red"
+//     "green": 0xff0000,
+//     "blue": 0x0000ff,
+//     "purple": 0x008080,
+//     "yellow": 0xc1ff35,
+//     "magenta": 0x00ffff,
+//     "orange": 0xa5ff00,
+//     "aqua": 0xff00ff,
+//     "white": 0xffffff,
+//     "on": 0xffffff
+// }
 
 function setLED(val){
-    ws281x.init(NUM_LEDS);   // initialize LEDs
-    var color = new Uint32Array(NUM_LEDS);  // array that stores colors for leds
-    var colors = Object.keys(colorPalette);
-    var randIdx = Math.floor(Math.random() * colors.length);
-    var randColor = colors[randIdx];
-    //console.log(randColor)
-    color[0] = colorPalette[randColor];
-    ws281x.render(color);
-    ws281x.setBrightness(val * 255)
+    // ws281x.init(NUM_LEDS);   // initialize LEDs
+    // var color = new Uint32Array(NUM_LEDS);  // array that stores colors for leds
+    // var colors = Object.keys(colorPalette);
+    // var randIdx = Math.floor(Math.random() * colors.length);
+    // var randColor = colors[randIdx];
+    // //console.log(randColor)
+    // color[0] = colorPalette[randColor];
+    // ws281x.render(color);
+    // ws281x.setBrightness(val * 255)
 }
 
 
