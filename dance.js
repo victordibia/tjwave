@@ -39,19 +39,19 @@ function decodeSoundFile(){
       samplerate = audioBuffer.sampleRate;
       maxvals = [] ; max = 0 ;
 
-      for (var i = 0; i < pcmdata.length ; i += samplerate* 0.05) {
-        for(var j = i; j < i + samplerate ; j++){
-          max = pcmdata[j] > max ? pcmdata[j]  : max ;
-        }
-        maxvals.push(max.toFixed(1))
-        max = 0 ;
-      }
+      // for (var i = 0; i < pcmdata.length ; i += samplerate* 0.05) {
+      //   for(var j = i; j < i + samplerate ; j++){
+      //     max = pcmdata[j] > max ? pcmdata[j]  : max ;
+      //   }
+      //   maxvals.push(max.toFixed(1))
+      //   max = 0 ;
+      // }
 
-      console.log("maxvals " + maxvals.length)
-
-      var maxhist = _.chain(maxvals).countBy().pairs().sortBy(function(arr){ return -arr[1]; }).first(10);
-      console.log(maxhist._wrapped)
-      threshold = maxhist._wrapped[0][0] - 0.15 ;
+      // console.log("maxvals " + maxvals.length)
+      //
+      // var maxhist = _.chain(maxvals).countBy().pairs().sortBy(function(arr){ return -arr[1]; }).first(10);
+      // console.log(maxhist._wrapped)
+      // threshold = maxhist._wrapped[0][0] - 0.00 ;
       dance();
 
     }, function(err) { throw err })
@@ -65,6 +65,9 @@ function findPeaks(pcmdata, samplerate, threshold){
   var above= 0 ;
   var interval = 0.05 * 1000 ; index = 0 ; var timetaken = 0 ; avg = 0 ; avgall = 0;
   var step = Math.round( samplerate * (interval/1000) );
+  var max = 0 ;
+  var prevmax = 0 ;
+  var prevdiffthreshold = 0.3 ;
 
   var samplesound = setInterval(function() {
     timetaken += interval;
@@ -73,20 +76,19 @@ function findPeaks(pcmdata, samplerate, threshold){
       console.log("finished sampling sound")
       return;
     }
+
     for(var i = index; i < index + step ; i++){
-      above += pcmdata[i] > threshold ? 1 : 0 ;
-      avg += pcmdata[i] > threshold? pcmdata[i] : 0 ;
-      avgall += pcmdata[i] ;
+      max = pcmdata[i] > max ? pcmdata[i].toFixed(1)  : max ;
     }
-    if (above > 0) {
-      console.log(getbars((avg/above).toFixed(2)), (avg/above).toFixed(2));
-      waveArm() ;
-      setLED((avg/above).toFixed(2))
-    }else{
-      console.log(getbars((avgall/step).toFixed(2)) );
-      //waveArm() ;
-      setLED((avgall/step).toFixed(2))
+
+    if(max-prevmax >= prevdiffthreshold){
+      waveArm();
     }
+
+    console.log(getbars(max), max, max-prevmax >= prevdiffthreshold ? " ====== pot ======" : "" )
+    prevmax = max ;
+
+    max = 0 ;
 
     above = 0 ; avg = 0; avgall = 0;
     index += step ;
@@ -108,8 +110,14 @@ function initServo(){
 }
 
 function waveArm() {
-  armcycle = armcycle == mincycle ? maxcycle : mincycle ;
-  softPWM.write(armcycle);
+  // armcycle = armcycle == mincycle ? maxcycle : mincycle ;
+  // softPWM.write(armcycle);
+  softPWM.write(maxcycle);
+  console.log("set to",maxcycle);
+  setTimeout(function(){
+    console.log("reset to", mincycle)
+      softPWM.write(mincycle);
+  }, 400);
 }
 
 // var ws281x = require('rpi-ws281x-native');
@@ -141,16 +149,7 @@ function setLED(val){
 }
 
 
-function smoothArray( values, smoothing ){
-  var value = values[0]; // start with the first input
-  for (var i=1, len=values.length; i<len; ++i){
-    var currentValue = values[i];
-    value += (currentValue - value) / smoothing;
-    values[i] = value;
-  }
 
-  return values
-}
 
 // Visualize image sound bars
 function getbars(val){
