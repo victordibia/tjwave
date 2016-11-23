@@ -110,13 +110,9 @@ function initServo(){
 }
 
 function waveArm() {
-  // armcycle = armcycle == mincycle ? maxcycle : mincycle ;
-  // softPWM.write(armcycle);
   softPWM.write(maxcycle);
-  console.log("set to",maxcycle);
   setTimeout(function(){
-    console.log("reset to", mincycle)
-      softPWM.write(mincycle);
+    softPWM.write(mincycle);
   }, 400);
 }
 
@@ -137,15 +133,15 @@ function waveArm() {
 // }
 
 function setLED(val){
-    // ws281x.init(NUM_LEDS);   // initialize LEDs
-    // var color = new Uint32Array(NUM_LEDS);  // array that stores colors for leds
-    // var colors = Object.keys(colorPalette);
-    // var randIdx = Math.floor(Math.random() * colors.length);
-    // var randColor = colors[randIdx];
-    // //console.log(randColor)
-    // color[0] = colorPalette[randColor];
-    // ws281x.render(color);
-    // ws281x.setBrightness(val * 255)
+  // ws281x.init(NUM_LEDS);   // initialize LEDs
+  // var color = new Uint32Array(NUM_LEDS);  // array that stores colors for leds
+  // var colors = Object.keys(colorPalette);
+  // var randIdx = Math.floor(Math.random() * colors.length);
+  // var randColor = colors[randIdx];
+  // //console.log(randColor)
+  // color[0] = colorPalette[randColor];
+  // ws281x.render(color);
+  // ws281x.setBrightness(val * 255)
 }
 
 
