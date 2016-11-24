@@ -162,7 +162,7 @@ function waveArm() {
 *********************************************************************
 */
 var music = new Sound("output.wav");
-speak("testing speaking")
+//speak("testing speaking")
 function speak(textstring){
   micInstance.pause(); // pause the microphone while playing
   var params = {
