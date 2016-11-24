@@ -41,7 +41,7 @@ function launchWaveReturn(){
     console.log("set to",maxcycle);
     setTimeout(function(){
       console.log("reset to", mincycle)
-        softPWM.write(mincycle);
+        motor.servoWrite(mincycle);
     }, waveinterval/3);
   }, waveinterval);
 }

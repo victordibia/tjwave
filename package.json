@@ -8,8 +8,9 @@
   },
   "author": "Victor Dibia",
   "license": "ISC",
-  "dependencies": { 
+  "dependencies": {
     "mic": "^2.1.1",
+    "pigpio": "^0.4.0",
     "node-aplay": "^1.0.3",
     "rpi-ws281x-native": "^0.8.1",
     "watson-developer-cloud": "^2.8.1",
