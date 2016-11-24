@@ -186,6 +186,7 @@ function speak(textstring){
 
     child.on('exit', function() {
       console.log("done playing")
+      micInstance.resume();
     })
   });
 }
