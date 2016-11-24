@@ -127,36 +127,36 @@ function parseText(str){
 * Step #5: Wave Arm
 *********************************************************************
 */
-//
-// var mincycle = 500; var maxcycle = 2300 ;
-// var dutycycle = mincycle;
-//
-// // Setup software PWM on pin 26, GPIO7.
-// var Gpio = require('pigpio').Gpio;
-// var motor ;
-//
-// /**
-//  * Wave the arm of your robot X times with an interval
-//  * @return {[type]} [description]
-//  */
-// function waveArm() {
-//   var times =  8 ;
-//   var interval = 700 ;
-//   motor = new Gpio(7, {mode: Gpio.OUTPUT});
-//
-//   var pulse = setInterval(function() {
-//     motor.servoWrite(maxcycle);
-//     setTimeout(function(){
-//         motor.servoWrite(mincycle);
-//     }, interval/3);
-//
-//     if (times-- === 0) {
-//       clearInterval(pulse);
-//       motor=null;
-//       return;
-//     }
-//   }, interval);
-// }
+
+var mincycle = 500; var maxcycle = 2300 ;
+var dutycycle = mincycle;
+
+// Setup software PWM on pin 26, GPIO7.
+var Gpio = require('pigpio').Gpio;
+var motor ;
+
+/**
+ * Wave the arm of your robot X times with an interval
+ * @return {[type]} [description]
+ */
+function waveArm() {
+  var times =  8 ;
+  var interval = 700 ;
+  motor = new Gpio(7, {mode: Gpio.OUTPUT});
+
+  var pulse = setInterval(function() {
+    motor.servoWrite(maxcycle);
+    setTimeout(function(){
+        motor.servoWrite(mincycle);
+    }, interval/3);
+
+    if (times-- === 0) {
+      clearInterval(pulse);
+      motor=null;
+      return;
+    }
+  }, interval);
+}
 
 
 /*********************************************************************
