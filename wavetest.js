@@ -10,9 +10,9 @@ var ws281x = require('rpi-ws281x-native');
 var NUM_LEDS = 1;        // Number of LEDs
 var waveinterval = 1500 ;
 var lightinterval = 500 ;
+
 var mincycle = 500; var maxcycle = 2300 ;
 var dutycycle = mincycle;
-var softPWM ;
 
 // Init board, setup software PWM on pin 26.
 var Gpio = require('pigpio').Gpio;

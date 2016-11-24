@@ -128,48 +128,32 @@ function parseText(str){
 *********************************************************************
 */
 
-var raspi = require('raspi-io');
-var five = require('johnny-five');
-var SoftPWM = require('raspi-soft-pwm').SoftPWM;
-var board = new five.Board({
-  io: new raspi()
-});
-var softPWM ;
-initServo();
+var mincycle = 500; var maxcycle = 2300 ;
+var dutycycle = mincycle;
 
-var pcmdata = [] ;
-var soundfile = "sounds/no.wav"
-var threshodld = 0 ;
-var mincycle = 10; var maxcycle = 60 ;
-var music = new Sound("output.wav"); ;
+// Setup software PWM on pin 26, GPIO7.
+var Gpio = require('pigpio').Gpio;
+var motor = new Gpio(7, {mode: Gpio.OUTPUT});
 
-function initServo(){
-  board.on('ready', function() {
-    softPWM = new SoftPWM({pin: 'P1-26', range: 100, frequency: 200});
-    console.log("servo initialized");
-
-    this.on("exit", function() {
-      console.log(" boarding exiting kill stuff")
-      //music.pause();
-      //music.stop();
-    });
-  });
-}
-
-
+/**
+ * Wave the arm of your robot X times with an interval
+ * @return {[type]} [description]
+ */
 function waveArm() {
   var times =  8 ;
   var interval = 700 ;
 
   var pulse = setInterval(function() {
-    softPWM.write(dutyCycle);
+    motor.servoWrite(maxcycle);
+    setTimeout(function(){
+        motor.servoWrite(mincycle);
+    }, interval/3);
+
     if (times-- === 0) {
       clearInterval(pulse);
-      rpio.open(pin, rpio.INPUT);
       return;
     }
-    angle =  mincycle ? angle = maxcycle : angle = mincycle ;
-  }, interval, angle, times);
+  }, interval);
 }
 
 
@@ -177,6 +161,7 @@ function waveArm() {
 * Step #6: Convert Text to Speech and Play
 *********************************************************************
 */
+var music = new Sound("output.wav");
 speak("testing speaking")
 function speak(textstring){
   micInstance.pause(); // pause the microphone while playing
@@ -200,6 +185,10 @@ function speak(textstring){
 * Piece #7: Play a Song and dance to the rythm!
 *********************************************************************
 */
+var pcmdata = [] ;
+var soundfile = "sounds/no.wav"
+var threshodld = 0 ;
+
 function dance(){
   console.log("decoding mp3 file ", soundfile, " ..... ")
   fs.readFile(soundfile, function(err, buf) {

@@ -6,27 +6,18 @@ var music ;
 var _ = require('underscore');
 var Sound = require('node-aplay');
 
-var raspi = require('raspi-io');
-var five = require('johnny-five');
-var SoftPWM = require('raspi-soft-pwm').SoftPWM;
-var board = new five.Board({
-  io: new raspi()
-});
-var softPWM ;
-initServo();
+
 
 var pcmdata = [] ;
 var soundfile = "sounds/club.wav"
 var threshodld = 0 ;
-var mincycle = 10; var maxcycle = 60 ;
-var armcycle = mincycle ;
 // Decode sound file
 decodeSoundFile(soundfile);
 
 
 function dance(){
   playsound(soundfile);
-  waveByPeaks(pcmdata, samplerate);
+  findPeaks(pcmdata, samplerate);
 }
 
 /**
@@ -49,12 +40,12 @@ function decodeSoundFile(soundfile){
 
 
 /**
- * [waveByPeaks Naive algo to identify peaks in the audio data, and wave]
+ * [findPeaks Naive algo to identify peaks in the audio data, and wave]
  * @param  {[type]} pcmdata    [description]
  * @param  {[type]} samplerate [description]
  * @return {[type]}            [description]
  */
-function waveByPeaks(pcmdata, samplerate){
+function findPeaks(pcmdata, samplerate){
   var above= 0 ;
   var interval = 0.05 * 1000 ; index = 0 ;  avg = 0 ; avgall = 0;
   var step = Math.round( samplerate * (interval/1000) );
@@ -88,22 +79,22 @@ function waveByPeaks(pcmdata, samplerate){
 }
 
 
-function initServo(){
-  board.on('ready', function() {
-    softPWM = new SoftPWM({pin: 'P1-26', range: 100, frequency: 200});
-    console.log("servo initialized");
-    this.on("exit", function() {
-      console.log(" boarding exiting kill stuff")
-      music.pause();
-      music.stop();
-    });
-  });
-}
+/*********************************************************************
+* Step #: Wave Arm
+*********************************************************************
+*/
+
+var mincycle = 500; var maxcycle = 2300 ;
+var dutycycle = mincycle;
+
+// Setup software PWM on pin 26, GPIO7.
+var Gpio = require('pigpio').Gpio;
+var motor = new Gpio(7, {mode: Gpio.OUTPUT});
 
 function waveArm() {
-  softPWM.write(maxcycle);
+  motor.servoWrite(maxcycle);
   setTimeout(function(){
-    softPWM.write(mincycle);
+    motor.servoWrite(mincycle);
   }, 400);
 }
 
