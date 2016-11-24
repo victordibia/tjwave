@@ -176,12 +176,17 @@ function speak(textstring){
   };
   text_to_speech.synthesize(params).pipe(fs.createWriteStream('output.wav')).on('close', function() {
     // var create_audio = exec('ffplay -autoexit output.wav', function (error, stdout, stderr) { // if on mac
-    music = new Sound("output.wav");
-    music.play();
-    music.on('complete', function () {
-      console.log('Done with playback!');
-      micInstance.resume();
-    });
+    // music = new Sound("output.wav");
+    // music.play();
+    // music.on('complete', function () {
+    //   console.log('Done with playback!');
+    //   micInstance.resume();
+    // });
+    var child = require('child_process').exec('aplay output.wav')
+
+    child.on('exit', function() {
+      console.log("done playing")
+    })
   });
 }
 
