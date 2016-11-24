@@ -147,7 +147,9 @@ function waveArm() {
   var pulse = setInterval(function() {
     motor.servoWrite(maxcycle);
     setTimeout(function(){
+      if (motor != null) {
         motor.servoWrite(mincycle);
+      }
     }, interval/3);
 
     if (times-- === 0) {
