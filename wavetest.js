@@ -4,26 +4,19 @@
 * Uses raspi-soft-pwm library built with johnny-five
 */
 
-var raspi = require('raspi-io');
-var five = require('johnny-five');
-var SoftPWM = require('raspi-soft-pwm').SoftPWM;
-var board = new five.Board({
-  io: new raspi()
-});
+
 
 var ws281x = require('rpi-ws281x-native');
 var NUM_LEDS = 1;        // Number of LEDs
 var waveinterval = 1500 ;
 var lightinterval = 500 ;
-var mincycle = 10; var maxcycle = 60 ;
+var mincycle = 500; var maxcycle = 2300 ;
 var dutycycle = mincycle;
 var softPWM ;
-// Init board, setup software PWM on pin 26.
-board.on('ready', function() {
-  softPWM = new SoftPWM({pin: 'P1-26', range: 100, frequency: 200});
-  launchWaveReturn();
-});
 
+// Init board, setup software PWM on pin 26.
+var Gpio = require('pigpio').Gpio;
+var motor = new Gpio(7, {mode: Gpio.OUTPUT});
 
 /**
 * Set a timer that waves the robot arm every X seconds
@@ -32,7 +25,7 @@ board.on('ready', function() {
 function launchWave(){
   setInterval(function () {
     dutycycle = dutycycle == mincycle ? maxcycle:mincycle ;
-    softPWM.write(dutycycle);
+    motor.servoWrite(dutycycle);
     console.log(dutycycle);
   }, waveinterval);
 }
@@ -43,7 +36,7 @@ function launchWave(){
 */
 function launchWaveReturn(){
   setInterval(function () {
-    softPWM.write(maxcycle);
+    motor.servoWrite(maxcycle);
     console.log("set to",maxcycle);
     setTimeout(function(){
       console.log("reset to", mincycle)

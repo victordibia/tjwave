@@ -8,12 +8,9 @@
   },
   "author": "Victor Dibia",
   "license": "ISC",
-  "dependencies": {
-    "johnny-five": "^0.10.3",
+  "dependencies": { 
     "mic": "^2.1.1",
     "node-aplay": "^1.0.3",
-    "raspi-io": "^6.1.1",
-    "raspi-soft-pwm": "^1.0.1",
     "rpi-ws281x-native": "^0.8.1",
     "watson-developer-cloud": "^2.8.1",
     "web-audio-api": "^0.2.2",

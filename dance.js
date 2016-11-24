@@ -21,15 +21,19 @@ var threshodld = 0 ;
 var mincycle = 10; var maxcycle = 60 ;
 var armcycle = mincycle ;
 // Decode sound file
-decodeSoundFile();
+decodeSoundFile(soundfile);
 
 
 function dance(){
   playsound(soundfile);
-  findPeaks(pcmdata, samplerate);
+  waveByPeaks(pcmdata, samplerate);
 }
 
-function decodeSoundFile(){
+/**
+ * [decodeSoundFile Use web-audio-api to convert audio file to a buffer of pcm data]
+ * @return {[type]} [description]
+ */
+function decodeSoundFile(soundfile){
   console.log("decoding mp3 file ", soundfile, " ..... ")
   fs.readFile(soundfile, function(err, buf) {
     if (err) throw err
@@ -38,39 +42,28 @@ function decodeSoundFile(){
       pcmdata = (audioBuffer.getChannelData(0)) ;
       samplerate = audioBuffer.sampleRate;
       maxvals = [] ; max = 0 ;
-
-      // for (var i = 0; i < pcmdata.length ; i += samplerate* 0.05) {
-      //   for(var j = i; j < i + samplerate ; j++){
-      //     max = pcmdata[j] > max ? pcmdata[j]  : max ;
-      //   }
-      //   maxvals.push(max.toFixed(1))
-      //   max = 0 ;
-      // }
-
-      // console.log("maxvals " + maxvals.length)
-      //
-      // var maxhist = _.chain(maxvals).countBy().pairs().sortBy(function(arr){ return -arr[1]; }).first(10);
-      // console.log(maxhist._wrapped)
-      // threshold = maxhist._wrapped[0][0] - 0.00 ;
       dance();
-
     }, function(err) { throw err })
   })
 }
 
 
-
-
-function findPeaks(pcmdata, samplerate){
+/**
+ * [waveByPeaks Naive algo to identify peaks in the audio data, and wave]
+ * @param  {[type]} pcmdata    [description]
+ * @param  {[type]} samplerate [description]
+ * @return {[type]}            [description]
+ */
+function waveByPeaks(pcmdata, samplerate){
   var above= 0 ;
-  var interval = 0.05 * 1000 ; index = 0 ; var timetaken = 0 ; avg = 0 ; avgall = 0;
+  var interval = 0.05 * 1000 ; index = 0 ;  avg = 0 ; avgall = 0;
   var step = Math.round( samplerate * (interval/1000) );
   var max = 0 ;
   var prevmax = 0 ;
   var prevdiffthreshold = 0.3 ;
 
+  //loop through song in time with sample rate
   var samplesound = setInterval(function() {
-    timetaken += interval;
     if (index >= pcmdata.length) {
       clearInterval(samplesound);
       console.log("finished sampling sound")
@@ -81,16 +74,15 @@ function findPeaks(pcmdata, samplerate){
       max = pcmdata[i] > max ? pcmdata[i].toFixed(1)  : max ;
     }
 
+    // Spot a significant increase? Wave Arm
     if(max-prevmax >= prevdiffthreshold){
       waveArm();
     }
 
-    console.log(getbars(max), max, max-prevmax >= prevdiffthreshold ? " ====== pot ======" : "" )
+    // Print out mini equalizer on commandline
+    console.log(getbars(max), max )
     prevmax = max ;
-
     max = 0 ;
-
-    above = 0 ; avg = 0; avgall = 0;
     index += step ;
   }, interval,pcmdata);
 }
@@ -100,7 +92,6 @@ function initServo(){
   board.on('ready', function() {
     softPWM = new SoftPWM({pin: 'P1-26', range: 100, frequency: 200});
     console.log("servo initialized");
-
     this.on("exit", function() {
       console.log(" boarding exiting kill stuff")
       music.pause();
