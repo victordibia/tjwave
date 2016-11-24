@@ -34,6 +34,7 @@ function launchWave(){
 * Set a timer that waves the robot arm every X seconds
 * Set to max cylce each time but return to mincycle x seconds after
 */
+launchWaveReturn()
 function launchWaveReturn(){
   setInterval(function () {
     motor.servoWrite(maxcycle);
