@@ -132,7 +132,9 @@ var mincycle = 500; var maxcycle = 2300 ;
 var dutycycle = mincycle;
 
 // Setup software PWM on pin 26, GPIO7.
-var Gpio = require('pigpio').Gpio;
+var pigpio = require('pigpio')
+pigpio.initialize();
+var Gpio = pigpio.Gpio;
 var motor ;
 
 /**
@@ -142,6 +144,7 @@ var motor ;
 function waveArm() {
   var times =  8 ;
   var interval = 700 ;
+  var
   motor = new Gpio(7, {mode: Gpio.OUTPUT});
 
   var pulse = setInterval(function() {
@@ -155,6 +158,7 @@ function waveArm() {
     if (times-- === 0) {
       clearInterval(pulse);
       motor=null;
+      pigpio.terminate()
       return;
     }
   }, interval);
@@ -165,7 +169,7 @@ function waveArm() {
 * Step #6: Convert Text to Speech and Play
 *********************************************************************
 */
-var music = new Sound("output.wav");
+var music ;
 //speak("testing speaking")
 function speak(textstring){
   micInstance.pause(); // pause the microphone while playing
@@ -175,19 +179,19 @@ function speak(textstring){
     accept: 'audio/wav'
   };
   text_to_speech.synthesize(params).pipe(fs.createWriteStream('output.wav')).on('close', function() {
-    // var create_audio = exec('ffplay -autoexit output.wav', function (error, stdout, stderr) { // if on mac
-    // music = new Sound("output.wav");
-    // music.play();
-    // music.on('complete', function () {
-    //   console.log('Done with playback!');
-    //   micInstance.resume();
-    // });
-    var child = require('child_process').exec('aplay output.wav')
-
-    child.on('exit', function() {
-      console.log("done playing")
+    var create_audio = exec('ffplay -autoexit output.wav', function (error, stdout, stderr) { // if on mac
+    music = new Sound("output.wav");
+    music.play();
+    music.on('complete', function () {
+      console.log('Done with playback!');
       micInstance.resume();
-    })
+    });
+    // var child = require('child_process').exec('aplay output.wav')
+    //
+    // child.on('exit', function() {
+    //   console.log("done playing")
+    //   micInstance.resume();
+    //})
   });
 }
 
