@@ -34,7 +34,7 @@ Your servo motor has three wires -  Power, Ground and Data in. In this recipe I 
 - Brown (Ground, Pin 14)
 - Yellow (Data in, Pin 26, GPIO7 )
 
-<img src="/images/fritz.jpg" width="100%">
+<img src="/images/tjwave_bb.jpg" width="100%">
 
 
 
