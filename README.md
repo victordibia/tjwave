@@ -28,22 +28,25 @@ Note: You must have a servo motor connected to your Pi. Servo data pin must be c
 
 ##Wiring Your Servo Motor
 
-Your servo motor has three wires -  Power, Ground and Data in. In this recipe I use the Tower Pro servo motor and the wires are as follows - Red (Power), Brown (Ground), Yellow (Data in)  
+Your servo motor has three wires -  Power, Ground and Data in. In this recipe I use the Tower Pro servo motor and the wires are as follows - Red (Power), Brown (Ground), Yellow (Data in). For this recipe, a software PWN library is used to control the servo motor, and I wire my setup as follows.
 
 - Red (+5v, Pin 2)
 - Brown (Ground, Pin 14)
 - Yellow (Data in, Pin 26, GPIO7 )
+
+Note: In the code, you can always change the pins used.
 
 <img src="/images/tjwave_bb.jpg" width="100%">
 
 
 
 ##Build
-Get the sample code and go to the application folder.
+Get the sample code (download or clone) and go to the application folder.
 
-    cd recipes/featured/tjwave
+    git clone git@github.com:victordibia/tjwave.git
+    cd tjwave
 
-Install ALSA tools (required for recording audio on Raspberry Pi)
+Install ALSA tools (required for recording audio on Raspberry Pi). (Some of the sample code integrate voice commands)
 
     sudo apt-get install alsa-base alsa-utils
 
@@ -64,7 +67,21 @@ Rename and update config.js
 
     # Rename the config_sample.js file to config.js. Open config.js using your favorite text editor # (e.g // nano) and update it with your Bluemix credentials for the Watson services you use.
 
+Test Your Servo
 
+Before running the code, you may test your LED setup and your Servo motor to make sure the connections are correct and the library is properly installed. When you run the test module, it should turn your LED to different colors and wave your robot arm at intervals.
+
+
+    sudo node wave_test.js
+
+
+If the LED does not light up, you can try moving the power from 3.3 to 5 volts.  If neither the 3.3v or 5v pins work, you will need a 1N4001 diode. The diode is inserted between the power pin of the LED (the shorter of the two middle pins) and the 5v pin on the Raspberry Pi.
+
+
+If your robot arm does not respond, kindly confirm you have connected it correctly. See the [PIN diagram here](https://github.com/nebrius/raspi-io/wiki/Pin-Information) for more information on raspberry pi PINS.
+
+
+If you have problems with the setup, please refer to Adafruit's Neopixel on Raspbeery Pi guide to troubleshoot.
 
 ##Running
 
