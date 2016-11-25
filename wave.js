@@ -228,16 +228,13 @@ function findPeaks(pcmdata, samplerate, threshold){
       console.log("finished sampling sound")
       return;
     }
-
     for(var i = index; i < index + step ; i++){
       max = pcmdata[i] > max ? pcmdata[i].toFixed(1)  : max ;
     }
-
     // Spot a significant increase? Wave Arm
     if(max-prevmax >= prevdiffthreshold){
       waveArm();
-    }
-
+    } 
     prevmax = max ; max = 0 ; index += step ;
   }, interval,pcmdata);
 }

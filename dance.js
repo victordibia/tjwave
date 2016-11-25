@@ -46,8 +46,7 @@ function decodeSoundFile(soundfile){
  * @return {[type]}            [description]
  */
 function findPeaks(pcmdata, samplerate){
-  var above= 0 ;
-  var interval = 0.05 * 1000 ; index = 0 ;  avg = 0 ; avgall = 0;
+  var interval = 0.05 * 1000 ; index = 0 ;   
   var step = Math.round( samplerate * (interval/1000) );
   var max = 0 ;
   var prevmax = 0 ;
@@ -72,9 +71,7 @@ function findPeaks(pcmdata, samplerate){
 
     // Print out mini equalizer on commandline
     console.log(getbars(max), max )
-    prevmax = max ;
-    max = 0 ;
-    index += step ;
+    prevmax = max ; max = 0 ; index += step ;
   }, interval,pcmdata);
 }
 

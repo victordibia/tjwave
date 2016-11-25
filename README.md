@@ -26,6 +26,18 @@ Note: You must have a servo motor connected to your Pi. Servo data pin must be c
 - [TJ Bot](http://ibm.biz/mytjbot) - You can 3D print or laser cut the robot
 - [Servo Motor] (https://www.amazon.com/gp/product/B00JJZXRR0/ref=oh_aui_detailpage_o03_s00?ie=UTF8&psc=1) -  TowerPro SG90 9G micro small servo motor
 
+##Wiring Your Servo Motor
+
+Your servo motor has three wires -  Power, Ground and Data in. In this recipe I use the Tower Pro servo motor and the wires are as follows - Red (Power), Brown (Ground), Yellow (Data in)  
+
+- Red (+5v, Pin 2)
+- Brown (Ground, Pin 14)
+- Yellow (Data in, Pin 26, GPIO7 )
+
+<img src="/images/fritz.jpgf" width="100%">
+
+
+
 ##Build
 Get the sample code and go to the application folder.
 
