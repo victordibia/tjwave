@@ -28,8 +28,6 @@ var speech_to_text = watson.speech_to_text({
 
 var fs = require('fs');
 var exec = require('child_process').exec;
-var Sound = require('node-aplay');
-
 var text_to_speech = watson.text_to_speech({
   username: config.TTSUsername,
   password: config.TTSPassword,
@@ -116,6 +114,7 @@ function parseText(str){
     speak(" My name is TJ. You can call me TJ Bot");
   }else if (canYouDance){
     speak(" Yes, I can dance");
+    dance();
   }else{
     speak("sorry, didnt get that.")
   }
@@ -135,7 +134,7 @@ var dutycycle = mincycle;
 var pigpio = require('pigpio')
 pigpio.initialize();
 var Gpio = pigpio.Gpio;
-var motor ;
+var motor = new Gpio(7, {mode: Gpio.OUTPUT});
 
 /**
  * Wave the arm of your robot X times with an interval
@@ -145,7 +144,7 @@ function waveArm() {
   var times =  8 ;
   var interval = 700 ;
   var
-  motor = new Gpio(7, {mode: Gpio.OUTPUT});
+
 
   var pulse = setInterval(function() {
     motor.servoWrite(maxcycle);
@@ -169,7 +168,9 @@ function waveArm() {
 * Step #6: Convert Text to Speech and Play
 *********************************************************************
 */
-var music ;
+
+var Sound = require('node-aplay');
+var soundobject ;
 //speak("testing speaking")
 function speak(textstring){
   micInstance.pause(); // pause the microphone while playing
@@ -180,13 +181,12 @@ function speak(textstring){
   };
   text_to_speech.synthesize(params).pipe(fs.createWriteStream('output.wav')).on('close', function() {
     var create_audio = exec('ffplay -autoexit output.wav', function (error, stdout, stderr) { // if on mac
-    music = new Sound("output.wav");
-    music.play();
-    music.on('complete', function () {
+    soundobject = new Sound("output.wav");
+    soundobject.play();
+    soundobject.on('complete', function () {
       console.log('Done with playback!');
       micInstance.resume();
     });
-    
   });
 }
 
@@ -195,10 +195,11 @@ function speak(textstring){
 *********************************************************************
 */
 var pcmdata = [] ;
-var soundfile = "sounds/no.wav"
+var samplerate ;
+var soundfile = "sounds/club.wav"
 var threshodld = 0 ;
-
-function dance(){
+decodeSoundFile(soundfile);
+function decodeSoundFile(soundfile){
   console.log("decoding mp3 file ", soundfile, " ..... ")
   fs.readFile(soundfile, function(err, buf) {
     if (err) throw err
@@ -206,53 +207,38 @@ function dance(){
       console.log(audioBuffer.numberOfChannels, audioBuffer.length, audioBuffer.sampleRate, audioBuffer.duration);
       pcmdata = (audioBuffer.getChannelData(0)) ;
       samplerate = audioBuffer.sampleRate;
-      maxvals = [] ; max = 0 ;
-
-      for (var i = 0; i < pcmdata.length ; i += samplerate* 0.05) {
-        for(var j = i; j < i + samplerate ; j++){
-          max = pcmdata[j] > max ? pcmdata[j]  : max ;
-        }
-        maxvals.push(max.toFixed(1))
-        max = 0 ;
-      }
-
-      console.log("maxvals " + maxvals.length)
-
-      var maxhist = _.chain(maxvals).countBy().pairs().sortBy(function(arr){ return -arr[1]; }).first(10);
-      console.log(maxhist._wrapped)
-      threshold = maxhist._wrapped[0][0] - 0.15 ;
-      //playsound();
-      findPeaks(pcmdata, samplerate, threshold);
-
     }, function(err) { throw err })
   })
 }
 
-function findPeaks(pcmdata, samplerate, threshold){
-  var above= 0 ;
-  var interval = 0.05 * 1000 ; index = 0 ; var timetaken = 0 ; avg = 0 ; avgall = 0;
-  var step = Math.round( samplerate * (interval/1000) );
+function dance(){
+  playsound(soundfile);
+  findPeaks(pcmdata, samplerate);
+}
 
+function findPeaks(pcmdata, samplerate, threshold){
+  var interval = 0.05 * 1000 ; index = 0 ;
+  var step = Math.round( samplerate * (interval/1000) );
+  var max = 0 ;   var prevmax = 0 ;  var prevdiffthreshold = 0.3 ;
+
+  //loop through song in time with sample rate
   var samplesound = setInterval(function() {
-    timetaken += interval;
     if (index >= pcmdata.length) {
       clearInterval(samplesound);
       console.log("finished sampling sound")
       return;
     }
+
     for(var i = index; i < index + step ; i++){
-      above += pcmdata[i] > threshold ? 1 : 0 ;
-      avg += pcmdata[i] > threshold? pcmdata[i] : 0 ;
-      avgall += pcmdata[i] ;
-    }
-    if (above > 0) {
-      console.log(getbars((avg/above).toFixed(2)), (avg/above).toFixed(2));
-    }else{
-      console.log(getbars((avgall/step).toFixed(2)) );
+      max = pcmdata[i] > max ? pcmdata[i].toFixed(1)  : max ;
     }
 
-    above = 0 ; avg = 0; avgall = 0;
-    index += step ;
+    // Spot a significant increase? Wave Arm
+    if(max-prevmax >= prevdiffthreshold){
+      waveArm();
+    }
+
+    prevmax = max ; max = 0 ; index += step ;
   }, interval,pcmdata);
 }
 
@@ -260,7 +246,6 @@ function findPeaks(pcmdata, samplerate, threshold){
 
 // ---- Stop PWM before exit
 process.on('SIGINT', function () {
-  //rpio.open(pin, rpio.INPUT);
   pigpio.terminate();
   process.nextTick(function () { process.exit(0); });
 });
