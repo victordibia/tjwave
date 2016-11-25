@@ -158,7 +158,7 @@ function waveArm() {
     if (times-- === 0) {
       clearInterval(pulse);
       motor=null;
-      pigpio.terminate()
+
       return;
     }
   }, interval);
@@ -186,12 +186,7 @@ function speak(textstring){
       console.log('Done with playback!');
       micInstance.resume();
     });
-    // var child = require('child_process').exec('aplay output.wav')
-    //
-    // child.on('exit', function() {
-    //   console.log("done playing")
-    //   micInstance.resume();
-    //})
+    
   });
 }
 
@@ -266,5 +261,6 @@ function findPeaks(pcmdata, samplerate, threshold){
 // ---- Stop PWM before exit
 process.on('SIGINT', function () {
   //rpio.open(pin, rpio.INPUT);
+  pigpio.terminate();
   process.nextTick(function () { process.exit(0); });
 });
