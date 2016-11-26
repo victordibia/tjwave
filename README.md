@@ -18,7 +18,7 @@ This module provides Node.js code to get control the arm on your TJ Bot via the 
 ##Hardware
 Follow the instructions in instructable_Link_goes_here to prepare your system ready to run the code.
 
-Note: You must have a servo motor connected to your Pi. Servo data pin must be connected to GPIO 18 as it works based on PWM.
+Note: You must have a servo motor connected to your Pi.  
 
 - [Raspberry Pi 3](https://www.amazon.com/dp/B01C6Q2GSY/ref=wl_it_dp_o_pC_nS_ttl?_encoding=UTF8&colid=1BLM6IHU3K1MA&coliid=I1WPZOVL411972)
 - [USB microphone](https://www.amazon.com/dp/B005BRET3G/ref=wl_it_dp_o_pC_nS_ttl?_encoding=UTF8&colid=1BLM6IHU3K1MA&coliid=I1C98I7HIFPNJE)
@@ -98,7 +98,7 @@ Sample utterances are
 
 ## Whats Next
 
-Think towards the area of animate your robot interactions using its arm. Some examples
+There are a few things you can do .. and ways to take your robot forward!
 - Use Watson Conversation to improve intent detection. Leverage machine learning capabilities within Watson conversation to better match intents even when recognized text is not accurate.
 - Animate robot interactions using arm movements + lights (e.g wave when your robot speaks or laughs etc)
 - Correlate additional data to robot arm movements ... e.g control your robot arm using an app, a wearable/smartwatch etc.
