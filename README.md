@@ -9,9 +9,9 @@ This module provides Node.js code to get control the arm on your TJ Bot via the 
 
 
 ## How It Works
-- Listens for voice commands
-- Sends audio from the microphone to the Watson Speech to Text Service - STT to transcribe [Watson Speech to Text](https://www.ibm.com/watson/developercloud/speech-to-text.html)
-- Parses the text looking for the attention words and commands
+- Listens for voice commands. See [**Running**](#running) for a list of voice commands supported in this sample.
+- Sends audio from the microphone to the [Watson Speech to Text](https://www.ibm.com/watson/developercloud/speech-to-text.html) Service - STT to transcribe audio to text.
+- Parses the text looking for commands
 - Once a command is recognized, an appropriate action (e.g wave arm) is taken and TJ verbalizes this action as well using  [Watson Text to Speech](https://www.ibm.com/watson/developercloud/text-to-speech.html) to generate an audio file.
 - The robot plays back the response through using the Alsa tools
 
@@ -28,7 +28,7 @@ Note: You must have a servo motor connected to your Pi. Servo data pin must be c
 
 ##Wiring Your Servo Motor
 
-Your servo motor has three wires -  Power, Ground and Data in. In this recipe I use the Tower Pro servo motor and the wires are as follows - Red (Power), Brown (Ground), Yellow (Data in). For this recipe, a software PWN library is used to control the servo motor, and I wire my setup as follows.
+Your servo motor has three wires -  Power, Ground and Data in. In this recipe I use the Tower Pro servo motor and the wires are as follows - Red (Power), Brown (Ground), Yellow (Data in). For this recipe, a software PWM library is used to control the servo motor, and I wire my setup as follows.
 
 - Red (+5v, Pin 2)
 - Brown (Ground, Pin 14)
@@ -69,7 +69,7 @@ Rename and update config.js
 
 Test Your Servo
 
-Before running the code, you may test your LED setup and your Servo motor to make sure the connections are correct and the library is properly installed. When you run the test module, it should turn your LED to different colors and wave your robot arm at intervals.
+Before running the main code (voice + wave + dance etc), you may test your LED setup and your Servo motor to make sure the connections are correct and the library is properly installed. When you run the test module, it should turn your LED to different colors and wave your robot arm at intervals.
 
 
     sudo node wave_test.js
@@ -81,7 +81,6 @@ If the LED does not light up, you can try moving the power from 3.3 to 5 volts. 
 If your robot arm does not respond, kindly confirm you have connected it correctly. See the [PIN diagram here](https://github.com/nebrius/raspi-io/wiki/Pin-Information) for more information on raspberry pi PINS.
 
 
-If you have problems with the setup, please refer to Adafruit's Neopixel on Raspbeery Pi guide to troubleshoot.
 
 ##Running
 
@@ -97,12 +96,18 @@ Sample utterances are
     TJ What is your name ?
     TJ can you dance ?
 
+## Whats Next
+
+Think towards the area of animate your robot interactions using its arm. Some examples
+- Use Watson Conversation to improve intent detection. Leverage machine learning capabilities within Watson conversation to better match intents even when recognized text is not accurate.
+- Animate robot interactions using arm movements + lights (e.g wave when your robot speaks or laughs etc)
+- Correlate additional data to robot arm movements ... e.g control your robot arm using an app, a wearable/smartwatch etc.
 
 # Dependencies List
 
 - Watson Developer Cloud - [Watson Speech to Text](https://www.ibm.com/watson/developercloud/speech-to-text.html), [Watson Conversation](https://www.ibm.com/watson/developercloud/conversation.html), and [Watson Text to Speech](https://www.ibm.com/watson/developercloud/text-to-speech.html).
 - [mic](https://www.npmjs.com/package/mic) npm package : for reading audio input
-- [raspi-soft-pwm](https://www.npmjs.com/package/raspi-soft-pwm) npm package : Provides access to Soft PWM on the Raspberry Pi.
+- [pigio](https://www.npmjs.com/package/pigpio) npm package : Fast (software) GPIO, PWM, servo control, state change notification, and interrupt handling on the Raspberry Pi.
 - [web-audio-api](https://www.npmjs.com/package/web-audio-api) : implementation (partial) of the HTML5 web audio api, used to decode sound files.
 - [underscorejs](https://www.npmjs.com/package/underscore) : functional programming helper library for data manipulation.
 
