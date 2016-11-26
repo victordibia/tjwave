@@ -5,7 +5,7 @@
 
 This module provides Node.js code to get control the arm on your TJ Bot via the servo motor. It uses [Watson Speech to Text](https://www.ibm.com/watson/developercloud/speech-to-text.html) to parse audio from the microphone, processes your commands (e.g command your bot to wave its arm, or dance to a song) and uses [Watson Text to Speech](https://www.ibm.com/watson/developercloud/text-to-speech.html) to "read" out a text response!
 
-**This will only run on the Raspberry Pi.**
+**This is designed to run on a Pi with a servo motor attached. See [Wiring Servo](#Wiring Your Servo Motor) for how to connect your servo motor**
 
 
 ## How It Works
