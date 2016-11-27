@@ -142,7 +142,7 @@ var motor = new Gpio(7, {mode: Gpio.OUTPUT});
  */
 function waveArm() {
   var times =  8 ;
-  var interval = 700 ; 
+  var interval = 700 ;
 
   var pulse = setInterval(function() {
     motor.servoWrite(maxcycle);
