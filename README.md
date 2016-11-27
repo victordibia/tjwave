@@ -110,6 +110,7 @@ There are a few things you can do .. and ways to take your robot forward!
 - [pigio](https://www.npmjs.com/package/pigpio) npm package : Fast (software) GPIO, PWM, servo control, state change notification, and interrupt handling on the Raspberry Pi.
 - [web-audio-api](https://www.npmjs.com/package/web-audio-api) : implementation (partial) of the HTML5 web audio api, used to decode sound files.
 - [underscorejs](https://www.npmjs.com/package/underscore) : functional programming helper library for data manipulation.
+- [node-aplay](https://www.npmjs.com/package/node-aplay) : Simple nodejs wrapper for aplay. 
 
 ## License
 
