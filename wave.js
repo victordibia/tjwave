@@ -142,9 +142,7 @@ var motor = new Gpio(7, {mode: Gpio.OUTPUT});
  */
 function waveArm() {
   var times =  8 ;
-  var interval = 700 ;
-  var
-
+  var interval = 700 ; 
 
   var pulse = setInterval(function() {
     motor.servoWrite(maxcycle);
@@ -234,7 +232,7 @@ function findPeaks(pcmdata, samplerate, threshold){
     // Spot a significant increase? Wave Arm
     if(max-prevmax >= prevdiffthreshold){
       waveArm();
-    } 
+    }
     prevmax = max ; max = 0 ; index += step ;
   }, interval,pcmdata);
 }
