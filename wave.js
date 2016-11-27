@@ -132,15 +132,16 @@ var dutycycle = mincycle;
 
 // Setup software PWM on pin 26, GPIO7.
 var pigpio = require('pigpio')
-pigpio.initialize();
-var Gpio = pigpio.Gpio;
-var motor = new Gpio(7, {mode: Gpio.OUTPUT});
 
 /**
 * Wave the arm of your robot X times with an interval
 * @return {[type]} [description]
 */
 function waveArm() {
+  pigpio.initialize();
+  var Gpio = pigpio.Gpio;
+  var motor = new Gpio(7, {mode: Gpio.OUTPUT});
+
   var times =  8 ;
   var interval = 700 ;
 
@@ -155,6 +156,7 @@ function waveArm() {
     if (times-- === 0) {
       clearInterval(pulse);
       motor=null;
+      pigpio.terminate();
 
       return;
     }
