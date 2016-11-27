@@ -106,8 +106,9 @@ function parseText(str){
 
 
   if (containsWaveArm) {
-    waveArm() ;
+
     speak("Ok, I will wave my arm. Just for you.");
+      waveArm() ;
   }else if (introduceYourself){
     speak(" Hi, my name is TJ. I'm an open source project designed to help you access Watson Services in a fun way. You can 3D print me or laser cut me, then use one of my recipes to bring me to life. I can't wait to see what we do together. ");
   }else if (whatisYourname){
