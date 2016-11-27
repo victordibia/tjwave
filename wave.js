@@ -137,9 +137,9 @@ var Gpio = pigpio.Gpio;
 var motor = new Gpio(7, {mode: Gpio.OUTPUT});
 
 /**
- * Wave the arm of your robot X times with an interval
- * @return {[type]} [description]
- */
+* Wave the arm of your robot X times with an interval
+* @return {[type]} [description]
+*/
 function waveArm() {
   var times =  8 ;
   var interval = 700 ;
@@ -178,7 +178,7 @@ function speak(textstring){
     accept: 'audio/wav'
   };
   text_to_speech.synthesize(params).pipe(fs.createWriteStream('output.wav')).on('close', function() {
-    var create_audio = exec('ffplay -autoexit output.wav', function (error, stdout, stderr) { // if on mac
+
     soundobject = new Sound("output.wav");
     soundobject.play();
     soundobject.on('complete', function () {
@@ -186,6 +186,7 @@ function speak(textstring){
       micInstance.resume();
     });
   });
+
 }
 
 /*********************************************************************
