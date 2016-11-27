@@ -197,7 +197,7 @@ var pcmdata = [] ;
 var samplerate ;
 var soundfile = "sounds/club.wav"
 var threshodld = 0 ;
-decodeSoundFile(soundfile);
+//decodeSoundFile(soundfile);
 function decodeSoundFile(soundfile){
   console.log("decoding mp3 file ", soundfile, " ..... ")
   fs.readFile(soundfile, function(err, buf) {
