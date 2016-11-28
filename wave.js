@@ -109,7 +109,7 @@ function parseText(str){
   if (containsWaveArm) {
 
     speak("Ok, I will wave my arm. Just for you.");
-    waveArm() ;
+    waveArm("wave") ;
   }else if (introduceYourself){
     speak(" Hi, my name is TJ. I'm an open source project designed to help you access Watson Services in a fun way. You can 3D print me or laser cut me, then use one of my recipes to bring me to life. I can't wait to see what we do together. ");
   }else if (whatisYourname){
@@ -139,7 +139,7 @@ var iswaving = false ;
 * Wave the arm of your robot X times with an interval
 * @return {[type]} [description]
 */
-function waveArm() {
+function waveArm(action) {
   iswaving = true ;
   var Gpio = pigpio.Gpio;
   var motor = new Gpio(7, {mode: Gpio.OUTPUT});
@@ -147,25 +147,32 @@ function waveArm() {
   var times =  8 ;
   var interval = 700 ;
 
-  var pulse = setInterval(function() {
+  if (action == "wave") {
+    var pulse = setInterval(function() {
+      motor.servoWrite(maxcycle);
+      setTimeout(function(){
+        if (motor != null) {
+          motor.servoWrite(mincycle);
+        }
+      }, interval/3);
+
+      if (times-- === 0) {
+        clearInterval(pulse);
+        if (!isplaying) {
+          setTimeout(function(){
+            micInstance.resume();
+            iswaving = false ;
+          }, 500);
+        }
+        return;
+      }
+    }, interval);
+  }else {
     motor.servoWrite(maxcycle);
     setTimeout(function(){
-      if (motor != null) {
-        motor.servoWrite(mincycle);
-      }
-    }, interval/3);
-
-    if (times-- === 0) {
-      clearInterval(pulse);
-      if (!isplaying) {
-        setTimeout(function(){
-          micInstance.resume();
-          iswaving = false ;
-        }, 500);
-      }
-      return;
-    }
-  }, interval);
+      motor.servoWrite(mincycle);
+    }, 400);
+  }
 }
 
 
@@ -257,7 +264,7 @@ function findPeaks(pcmdata, samplerate, threshold){
     }
     // Spot a significant increase? Wave Arm
     if(max-prevmax >= prevdiffthreshold){
-      waveArm();
+      waveArm("dance");
     }
     prevmax = max ; max = 0 ; index += step ;
   }, interval,pcmdata);
