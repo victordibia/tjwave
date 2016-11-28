@@ -117,7 +117,6 @@ function parseText(str){
   }else if (whatisYourname){
     speak(" My name is TJ. You can call me TJ Bot");
   }else if (canYouDance){
-    speak(" Yes, I can dance");
     dance();
   }else{
     if (str.length > 10){
