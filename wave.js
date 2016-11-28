@@ -169,10 +169,11 @@ function waveArm() {
 *********************************************************************
 */
 
-var Sound = require('node-aplay');
-var soundobject ;
+
 //speak("testing speaking")
 function speak(textstring){
+  var Sound = require('node-aplay');
+  var soundobject ;
   micInstance.pause(); // pause the microphone while playing
   var params = {
     text: textstring,
