@@ -136,6 +136,7 @@ var pigpio = require('pigpio')
 pigpio.initialize();
 var Gpio = pigpio.Gpio;
 var motor = new Gpio(7, {mode: Gpio.OUTPUT});
+pigpio.terminate();
 /**
 * Wave the arm of your robot X times with an interval
 * @return {[type]} [description]
