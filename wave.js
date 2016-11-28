@@ -170,8 +170,7 @@ function waveArm() {
 
 //speak("testing speaking")
 function speak(textstring){
-  var Sound = require('node-aplay');
-  var soundobject ;
+
   micInstance.pause(); // pause the microphone while playing
   var params = {
     text: textstring,
@@ -179,20 +178,21 @@ function speak(textstring){
     accept: 'audio/wav'
   };
   text_to_speech.synthesize(params).pipe(fs.createWriteStream('output.wav')).on('close', function() {
+    var Sound = require('node-aplay');
+    var soundobject ;
+    soundobject = new Sound("output.wav");
+    soundobject.play();
+    soundobject.on('complete', function () {
+      console.log('Done with playback! for ' + textstring);
+      micInstance.resume();
+    });
 
-    // soundobject = new Sound("output.wav");
-    // soundobject.play();
-    // soundobject.on('complete', function () {
-    //   console.log('Done with playback! for ' + textstring);
-    //   micInstance.resume();
-    // });
-
-    var child = require('child_process').spawn('aplay output.wav')
-    child.stdout.pipe(process.stdout)
-    child.on('exit', function() {
-      console.log(" bingo done")
-      process.exit()
-    })
+    // var child = require('child_process').spawn('aplay output.wav')
+    // child.stdout.pipe(process.stdout)
+    // child.on('exit', function() {
+    //   console.log(" bingo done")
+    //   process.exit()
+    // })
 
 
   });
