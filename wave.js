@@ -156,8 +156,8 @@ function waveArm() {
 
     if (times-- === 0) {
       clearInterval(pulse);
-      pigpio.terminate();
-      micInstance.resume();
+      //pigpio.terminate();
+    //  micInstance.resume();
       return;
     }
   }, interval);
