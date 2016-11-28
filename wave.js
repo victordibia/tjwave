@@ -157,10 +157,12 @@ function waveArm() {
 
     if (times-- === 0) {
       clearInterval(pulse);
-      setTimeout(function(){
-        micInstance.resume();
-        iswaving = false ;
-      }, 500);
+      if (!isplaying) {
+        setTimeout(function(){
+          micInstance.resume();
+          iswaving = false ;
+        }, 500);
+      }
       return;
     }
   }, interval);
@@ -189,7 +191,7 @@ function speak(textstring){
     soundobject.play();
     soundobject.on('complete', function () {
       console.log('Done with playback! for ' + textstring + " iswaving " + iswaving);
-      if (!iswaving) {
+      if (!iswaving && !isplaying) {
         micInstance.resume();
       }
 
@@ -215,13 +217,26 @@ function decodeSoundFile(soundfile){
       console.log(audioBuffer.numberOfChannels, audioBuffer.length, audioBuffer.sampleRate, audioBuffer.duration);
       pcmdata = (audioBuffer.getChannelData(0)) ;
       samplerate = audioBuffer.sampleRate;
+      findPeaks(pcmdata, samplerate);
     }, function(err) { throw err })
   })
 }
 
 function dance(){
   playsound(soundfile);
-  findPeaks(pcmdata, samplerate);
+  speak("Sure. I am decoding a sound file that I will dance to. This may take a couple of seconds.").
+  decodeSoundFile(soundfile);
+}
+
+var isplaying = false ;
+function playsound(soundfile){
+  isplaying = true ;
+  music = new Sound(soundfile);
+  music.play();
+  music.on('complete', function () {
+    console.log('Done with music playback!');
+    isplaying = false();
+  });
 }
 
 function findPeaks(pcmdata, samplerate, threshold){
