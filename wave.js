@@ -131,6 +131,7 @@ function parseText(str){
 
 var mincycle = 500; var maxcycle = 2300 ;
 var dutycycle = mincycle;
+var iswaving = false ;
 
 // Setup software PWM on pin 26, GPIO7.
 
@@ -139,7 +140,7 @@ var dutycycle = mincycle;
 * @return {[type]} [description]
 */
 function waveArm() {
-
+  iswaving = true ;
   var Gpio = pigpio.Gpio;
   var motor = new Gpio(7, {mode: Gpio.OUTPUT});
   //pigpio.terminate();
@@ -156,8 +157,10 @@ function waveArm() {
 
     if (times-- === 0) {
       clearInterval(pulse);
-      //pigpio.terminate();
-    //  micInstance.resume();
+      setTimeout(function(){
+        micInstance.resume();
+        iswaving = false ;
+      }, 500);
       return;
     }
   }, interval);
@@ -185,18 +188,12 @@ function speak(textstring){
     soundobject = new Sound("output.wav");
     soundobject.play();
     soundobject.on('complete', function () {
-      console.log('Done with playback! for ' + textstring);
-      micInstance.resume();
+      console.log('Done with playback! for ' + textstring + " iswaving " + iswaving);
+      if (!iswaving) {
+        micInstance.resume();
+      }
+
     });
-
-    // var child = require('child_process').spawn('aplay output.wav')
-    // child.stdout.pipe(process.stdout)
-    // child.on('exit', function() {
-    //   console.log(" bingo done")
-    //   process.exit()
-    // })
-
-
   });
 
 }
