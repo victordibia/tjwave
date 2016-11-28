@@ -103,7 +103,7 @@ textStream.on('error', function(err) {
 });
 
 function parseText(str){
-  var containsWaveArm = (str.indexOf("raise") >= 0 || str.indexOf("weave") >= 0 || str.indexOf("wave") >= 0 || str.indexOf("leave") >= 0 ) && str.indexOf("arm") >= 0) ;
+  var containsWaveArm = (str.indexOf("raise") >= 0 || str.indexOf("weave") >= 0 || str.indexOf("wave") >= 0 || str.indexOf("leave") >= 0 ) && (  str.indexOf("arm") >= 0) ;
   var introduceYourself = str.indexOf("introduce") >= 0 && str.indexOf("yourself") >= 0  ;
   var whatisYourname = str.indexOf("what") >= 0 && str.indexOf("your") >= 0 && str.indexOf("name") >= 0  ;
   var canYouDance = str.indexOf("can") >= 0 && str.indexOf("you") >= 0 && str.indexOf("dance") >= 0  ;
