@@ -17,7 +17,8 @@ get the system ready to run this code.
 In this step, the audio sample (pipe) is sent to "Watson Speech to Text" to transcribe.
 The service converts the audio to text and saves the returned text in "textStream"
 */
-
+var pigpio = require('pigpio')
+pigpio.initialize();
 var watson = require('watson-developer-cloud');
 var config = require('./config');  // gets our username and passwords from the config.js files
 var speech_to_text = watson.speech_to_text({
@@ -138,8 +139,7 @@ var dutycycle = mincycle;
 * @return {[type]} [description]
 */
 function waveArm() {
-  var pigpio = require('pigpio')
-  pigpio.initialize();
+
   var Gpio = pigpio.Gpio;
   var motor = new Gpio(7, {mode: Gpio.OUTPUT});
   //pigpio.terminate();
