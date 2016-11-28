@@ -187,7 +187,7 @@ function speak(textstring){
     //   micInstance.resume();
     // });
 
-    var child = require('child_process').exec('aplay output.wav')
+    var child = require('child_process').spawn('aplay output.wav')
     child.stdout.pipe(process.stdout)
     child.on('exit', function() {
       console.log(" bingo done")
