@@ -218,13 +218,13 @@ function decodeSoundFile(soundfile){
       pcmdata = (audioBuffer.getChannelData(0)) ;
       samplerate = audioBuffer.sampleRate;
       findPeaks(pcmdata, samplerate);
+      playsound(soundfile);
     }, function(err) { throw err })
   })
 }
 
 dance();
 function dance(){
-  playsound(soundfile);
   speak("Sure. I am decoding a sound file that I will dance to. This may take a couple of seconds.") ;
   decodeSoundFile(soundfile);
 }
@@ -236,7 +236,7 @@ function playsound(soundfile){
   music.play();
   music.on('complete', function () {
     console.log('Done with music playback!');
-    isplaying = false();
+    isplaying = false;
   });
 }
 
