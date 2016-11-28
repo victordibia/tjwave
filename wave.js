@@ -117,7 +117,7 @@ function parseText(str){
     speak(" Yes, I can dance");
     dance();
   }else{
-    speak("sorry, didnt get that.")
+    speak("sorry, I havent been taught to understand that.")
   }
 
 
@@ -155,6 +155,7 @@ function waveArm() {
 
     if (times-- === 0) {
       clearInterval(pulse);
+      pigpio.terminate();
       micInstance.resume();
       return;
     }
@@ -182,7 +183,7 @@ function speak(textstring){
     soundobject = new Sound("output.wav");
     soundobject.play();
     soundobject.on('complete', function () {
-      console.log('Done with playback!');
+      console.log('Done with playback! for ' + textstring);
       micInstance.resume();
     });
   });
