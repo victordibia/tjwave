@@ -1,3 +1,8 @@
+/**
+ *  Author: Victor Dibia
+ *  description - move robot arm to the beats of a music.
+ */
+
 var AudioContext = require('web-audio-api').AudioContext
 var context = new AudioContext
 var fs = require('fs')
@@ -46,7 +51,7 @@ function decodeSoundFile(soundfile){
  * @return {[type]}            [description]
  */
 function findPeaks(pcmdata, samplerate){
-  var interval = 0.05 * 1000 ; index = 0 ;   
+  var interval = 0.05 * 1000 ; index = 0 ;
   var step = Math.round( samplerate * (interval/1000) );
   var max = 0 ;
   var prevmax = 0 ;
@@ -95,6 +100,7 @@ function waveArm() {
   }, 400);
 }
 
+// Hardware PWM used for LED "sometimes" conflicts with audio, you can uncomment and try it.
 // var ws281x = require('rpi-ws281x-native');
 // var NUM_LEDS = 1;        // Number of LEDs
 // var colorPalette = {

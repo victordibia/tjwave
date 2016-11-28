@@ -19,6 +19,8 @@ The service converts the audio to text and saves the returned text in "textStrea
 */
 var pigpio = require('pigpio')
 pigpio.initialize();
+
+
 var watson = require('watson-developer-cloud');
 var config = require('./config');  // gets our username and passwords from the config.js files
 var speech_to_text = watson.speech_to_text({
@@ -107,7 +109,6 @@ function parseText(str){
 
 
   if (containsWaveArm) {
-
     speak("Ok, I will wave my arm. Just for you.");
     waveArm("wave") ;
   }else if (introduceYourself){
@@ -118,7 +119,9 @@ function parseText(str){
     speak(" Yes, I can dance");
     dance();
   }else{
-    speak("sorry, I haven't been taught to understand that.")
+    if (str.length > 10){
+      speak("sorry, I haven't been taught to understand that.")
+    }
   }
 
 
