@@ -139,7 +139,6 @@ var pigpio = require('pigpio')
 * @return {[type]} [description]
 */
 function waveArm() {
-  pigpio.initialize();
   var Gpio = pigpio.Gpio;
   var motor = new Gpio(7, {mode: Gpio.OUTPUT});
 
@@ -158,7 +157,6 @@ function waveArm() {
       clearInterval(pulse);
       motor=null;
       pigpio.terminate();
-
       return;
     }
   }, interval);
