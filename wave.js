@@ -108,7 +108,7 @@ function parseText(str){
   if (containsWaveArm) {
 
     speak("Ok, I will wave my arm. Just for you.");
-      waveArm() ;
+    waveArm() ;
   }else if (introduceYourself){
     speak(" Hi, my name is TJ. I'm an open source project designed to help you access Watson Services in a fun way. You can 3D print me or laser cut me, then use one of my recipes to bring me to life. I can't wait to see what we do together. ");
   }else if (whatisYourname){
@@ -180,12 +180,21 @@ function speak(textstring){
   };
   text_to_speech.synthesize(params).pipe(fs.createWriteStream('output.wav')).on('close', function() {
 
-    soundobject = new Sound("output.wav");
-    soundobject.play();
-    soundobject.on('complete', function () {
-      console.log('Done with playback! for ' + textstring);
-      micInstance.resume();
-    });
+    // soundobject = new Sound("output.wav");
+    // soundobject.play();
+    // soundobject.on('complete', function () {
+    //   console.log('Done with playback! for ' + textstring);
+    //   micInstance.resume();
+    // });
+
+    var child = require('child_process').exec('aplay output.wav')
+    child.stdout.pipe(process.stdout)
+    child.on('exit', function() {
+      console.log(" bingo done")
+      process.exit()
+    })
+
+
   });
 
 }
