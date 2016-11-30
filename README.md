@@ -3,6 +3,7 @@
 
 > Control the arm of your TJ Bot (using the embedded servo)  
 
+Video [demo here](https://youtu.be/Wks9-9V7eMY)
 This module provides Node.js code to get control the arm on your TJ Bot via the servo motor. It uses [Watson Speech to Text](https://www.ibm.com/watson/developercloud/speech-to-text.html) to parse audio from the microphone, processes your commands (e.g command your bot to wave its arm, or dance to a song) and uses [Watson Text to Speech](https://www.ibm.com/watson/developercloud/text-to-speech.html) to "read" out a text response!
 
 **This is designed to run on a Pi with a servo motor attached. See [Wiring Servo](#wiring-your-servo-motor) for how to connect your servo motor**
@@ -16,7 +17,7 @@ This module provides Node.js code to get control the arm on your TJ Bot via the 
 - The robot plays back the response through using the Alsa tools
 
 ##Hardware
-Follow the instructions in instructable_Link_goes_here to prepare your system ready to run the code.
+Follow the full set of instructions on [instructables](http://www.instructables.com/id/Build-a-Waving-Robot-Using-Watson-Services/) to prepare your TJBot ready to run the code.
 
 Note: You must have a servo motor connected to your Pi.  
 
@@ -96,6 +97,8 @@ Sample utterances are
     TJ What is your name ?
     TJ can you dance ?
 
+For the dance command, your robot processes wav files in the sounds folder. Please ensure you have a .wav file there and set that as your sound file.
+
 ## Whats Next
 
 There are a few things you can do .. and ways to take your robot forward!
@@ -110,7 +113,7 @@ There are a few things you can do .. and ways to take your robot forward!
 - [pigio](https://www.npmjs.com/package/pigpio) npm package : Fast (software) GPIO, PWM, servo control, state change notification, and interrupt handling on the Raspberry Pi.
 - [web-audio-api](https://www.npmjs.com/package/web-audio-api) : implementation (partial) of the HTML5 web audio api, used to decode sound files.
 - [underscorejs](https://www.npmjs.com/package/underscore) : functional programming helper library for data manipulation.
-- [node-aplay](https://www.npmjs.com/package/node-aplay) : Simple nodejs wrapper for aplay. 
+- [node-aplay](https://www.npmjs.com/package/node-aplay) : Simple nodejs wrapper for aplay.
 
 ## License
 

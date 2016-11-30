@@ -1,6 +1,9 @@
 #config file
 config.js
 
+sounds/club.wav
+sounds/tiger.wav
+
 # Logs
 logs
 *.log
