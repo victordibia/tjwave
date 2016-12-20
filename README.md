@@ -27,7 +27,7 @@ Note: You must have a servo motor connected to your Pi.
 - [Speaker with 3.5mm audio jack](https://www.amazon.com/gp/product/B014SOKX1E/ref=oh_aui_detailpage_o00_s00?ie=UTF8&psc=1)
 - [TJ Bot](http://ibm.biz/mytjbot) - You can 3D print or laser cut the robot
 - [Servo Motor] (https://www.amazon.com/gp/product/B00JJZXRR0/ref=oh_aui_detailpage_o03_s00?ie=UTF8&psc=1) -  TowerPro SG90 9G micro small servo motor
-- [RGB LED](https://www.adafruit.com/products/1734) - Optional led. 
+- [RGB LED](https://www.adafruit.com/products/1734) - Optional led.
 
 ##Wiring Your Servo Motor
 
@@ -52,6 +52,7 @@ Get the sample code (download or clone) and go to the application folder.
 Install ALSA tools (required for recording audio on Raspberry Pi). (Some of the sample code integrate voice commands)
 
     sudo apt-get install alsa-base alsa-utils
+    sudo apt-get install libasound2-dev
 
 Install Dependencies
 
