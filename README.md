@@ -102,6 +102,13 @@ Sample utterances are
 
 For the dance command, your robot processes wav files in the sounds folder. Please ensure you have a .wav file there and set that as your sound file.
 
+# Known Issues
+There are known conflicts between using hardware PWM pin on a pi and audio, hence you cannot use both at the same time. For example, our LED library (ws281x) uses hardware PWM and will not work correctly when audio is enabled. To disable audio, you will need to blacklist the Broadcom audio kernel module by creating a file /etc/modprobe.d/snd-blacklist.conf with
+
+    blacklist snd_bcm2835
+
+If audio is needed, you can use a USB audio device instead.
+
 ## Whats Next
 
 There are a few things you can do .. and ways to take your robot forward!
