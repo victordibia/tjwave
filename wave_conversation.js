@@ -140,7 +140,14 @@ textStream.on('data', function(str) {
           };
 
           console.log("Result from conversation : " , conversation_response);
-          console.log("intents : " , response.intents[0].intent)
+          var matchedintent =  response.intents[0].intent ; // intent with the highest confidence
+          console.log("intents : " , response.intents[0].intent) ;
+
+          if(matchedintent == "dance"){
+            dance();
+          }else if(matchedintent == "wave"){
+            waveArm("wave") ;
+          }
           /*********************************************************************
           Step #5: Speak out the response
           *********************************************************************
@@ -301,7 +308,7 @@ function decodeSoundFile(soundfile){
 
 //dance();
 function dance(){
-  speak("Sure. I am decoding a sound file that I will dance to. This may take a couple of seconds.") ;
+  //speak("Sure. I am decoding a sound file that I will dance to. This may take a couple of seconds.") ;
   decodeSoundFile(soundfile);
 }
 
