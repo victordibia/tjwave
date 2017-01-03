@@ -248,28 +248,32 @@ function waveArm(action) {
 
 var Sound = require('node-aplay');
 var soundobject ;
+var isspeaking = false ;
 //speak("testing speaking")
 function speak(textstring){
 
-  micInstance.pause(); // pause the microphone while playing
-  var params = {
-    text: textstring,
-    voice: config.voice,
-    accept: 'audio/wav'
-  };
-  text_to_speech.synthesize(params).pipe(fs.createWriteStream('output.wav')).on('close', function() {
+  if (!isspeaking) {
 
-    soundobject = new Sound("output.wav");
-    soundobject.play();
-    soundobject.on('complete', function () {
-      console.log('Done with playback! for ' + textstring + " iswaving " + iswaving);
-      if (!iswaving && !isplaying) {
-        micInstance.resume();
-      }
-
+    micInstance.pause(); // pause the microphone while playing
+    var params = {
+      text: textstring,
+      voice: config.voice,
+      accept: 'audio/wav'
+    };
+    text_to_speech.synthesize(params).pipe(fs.createWriteStream('output.wav')).on('close', function() {
+      isspeaking = true ;
+      soundobject = new Sound("output.wav");
+      soundobject.play();
+      soundobject.on('complete', function () {
+        console.log('Done with playback! for ' + textstring + " iswaving " + iswaving);
+        if (!iswaving && !isplaying) {
+          micInstance.resume();
+        }
+        isspeaking = false ;
+      });
     });
-  });
 
+  }  
 }
 
 /*********************************************************************
