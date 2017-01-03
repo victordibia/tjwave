@@ -141,7 +141,7 @@ textStream.on('data', function(str) {
 
           console.log("Result from conversation : " , conversation_response);
           var matchedintent =  response.intents[0].intent ; // intent with the highest confidence
-          console.log("intents : " , response.intents[0].intent) ;
+          console.log("intents : " , response.intents) ;
 
           if(matchedintent == "dance"){
             dance();
