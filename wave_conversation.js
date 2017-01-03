@@ -88,7 +88,6 @@ The service converts the audio to text and saves the returned text in "textStrea
 var recognizeparams = {
   content_type: 'audio/l16; rate=44100; channels=2',
   interim_results: true,
-  keywords: [attentionWord],
   smart_formatting: true,
   keywords_threshold: 0.5,
   model: 'en-US_BroadbandModel'  // Specify your language model here
@@ -122,7 +121,7 @@ textStream.setEncoding('utf8');
 textStream.on('data', function(str) {
   console.log(' ===== Speech to Text ===== : ' + str); // print the text once received
 
-    var res = str.toLowerCase().replace(attentionWord.toLowerCase(), "");
+    var res = str ;
     console.log("msg sent to conversation:" ,res);
     conversation.message({
       workspace_id: config.ConWorkspace,
