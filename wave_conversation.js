@@ -140,7 +140,7 @@ textStream.on('data', function(str) {
           };
 
           console.log("Result from conversation : " , conversation_response);
-          console.log("intents : " , response.intents)
+          console.log("intents : " , response.intents[0].intent)
           /*********************************************************************
           Step #5: Speak out the response
           *********************************************************************
@@ -273,7 +273,7 @@ function speak(textstring){
       });
     });
 
-  }  
+  }
 }
 
 /*********************************************************************
