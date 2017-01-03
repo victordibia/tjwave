@@ -84,7 +84,7 @@ console.log("TJ is listening, you may speak now.");
 In this step, the audio sample is sent (piped) to "Watson Speech to Text" to transcribe.
 The service converts the audio to text and saves the returned text in "textStream"
 */
-s
+
 var recognizeparams = {
   content_type: 'audio/l16; rate=44100; channels=2',
   interim_results: true,
