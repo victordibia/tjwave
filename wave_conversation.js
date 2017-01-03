@@ -146,16 +146,17 @@ textStream.on('data', function(str) {
 
           if (intentconfidence > 0.5){
             if(matchedintent == "dance"){
+              speak(conversation_response) ;
               dance();
             }else if(matchedintent == "wave"){
+              speak(conversation_response) ;
               waveArm("wave") ;
             } else if(matchedintent == "see"){
               launchVision();
+            } else {
+              speak(conversation_response) ;
             }
 
-
-
-            speak(conversation_response) ;
           }
 
 
