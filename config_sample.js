@@ -9,4 +9,10 @@ exports.username = 'xxx-xxx-xxx' ;
 exports.TTSPassword = 'xxx-xxx-xxx' ;
 exports.TTSUsername = 'xxx-xxx-xxx' ;
 
+// Credentials for Watson Conversation service
+exports.ConPassword = 'xxxxxx' ;
+exports.ConUsername = 'xxx-xxx-xxx' ;
+exports.ConWorkspace = 'xxx-xxx-xxx';
+
+
 exports.version = 'v1' ;
