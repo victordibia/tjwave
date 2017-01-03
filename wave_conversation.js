@@ -141,20 +141,15 @@ textStream.on('data', function(str) {
             accept: 'audio/wav'
           };
 
-          console.log("Result from conversation:" ,conversation_response);
+          console.log("Result from conversation : " , conversation_response);
+          console.log("intents : " , response.intents)
           /*********************************************************************
           Step #5: Speak out the response
           *********************************************************************
           In this step, we text is sent out to Watsons Text to Speech service and result is piped to wave file.
           Wave files are then played using alsa (native audio) tool.
           */
-          tempStream = text_to_speech.synthesize(params).pipe(fs.createWriteStream('output.wav')).on('close', function() {
-            var create_audio = exec('aplay output.wav', function (error, stdout, stderr) {
-              if (error !== null) {
-                console.log('exec error: ' + error);
-              }
-            });
-          });
+          speak(conversation_response) ;
         }else {
           console.log("The response (output) text from your conversation is empty. Please check your conversation flow \n" + JSON.stringify( response))
         }
