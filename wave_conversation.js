@@ -144,7 +144,7 @@ textStream.on('data', function(str) {
           var intentconfidence = response.intents[0].confidence  ;
           console.log("intents : " , response.intents) ;
 
-          if (intentconfidence > 0.4){
+          if (intentconfidence > 0.5){
             if(matchedintent == "dance"){
               dance();
             }else if(matchedintent == "wave"){
