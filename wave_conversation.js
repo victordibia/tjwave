@@ -141,20 +141,27 @@ textStream.on('data', function(str) {
 
           console.log("Result from conversation : " , conversation_response);
           var matchedintent =  response.intents[0].intent ; // intent with the highest confidence
+          var intentconfidence = response.intents[0].confidence  ;
           console.log("intents : " , response.intents) ;
 
-          if(matchedintent == "dance"){
-            dance();
-          }else if(matchedintent == "wave"){
-            waveArm("wave") ;
+          if (intentconfidence > 0.4){
+            if(matchedintent == "dance"){
+              dance();
+            }else if(matchedintent == "wave"){
+              waveArm("wave") ;
+            }
+
+            speak(conversation_response) ;
           }
+
+
           /*********************************************************************
           Step #5: Speak out the response
           *********************************************************************
           In this step, we text is sent out to Watsons Text to Speech service and result is piped to wave file.
           Wave files are then played using alsa (native audio) tool.
           */
-          speak(conversation_response) ;
+
         }else {
           console.log("The response (output) text from your conversation is empty. Please check your conversation flow \n" + JSON.stringify( response))
         }
