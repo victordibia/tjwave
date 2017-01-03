@@ -416,7 +416,8 @@ function processImage(imagefile){
       result = res.images[0].classifiers[0].classes
       if(result !== null & result.length > 0){
         result.forEach(function(obj){
-          console.log(obj.class)
+          //console.log(obj.class)
+          console.log(obj)
           resultstring = resultstring + ", " + obj.class
         })
         console.log(resultstring)
