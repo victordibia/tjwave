@@ -14,5 +14,8 @@ exports.ConPassword = 'xxxxxx' ;
 exports.ConUsername = 'xxx-xxx-xxx' ;
 exports.ConWorkspace = 'xxx-xxx-xxx';
 
+// Credentials for Vision Api
+exports.VisionKey = 'xxx-xxx-xxx' ;
+exports.VisionVersion = '2016-05-19' ;
 
 exports.version = 'v1' ;
