@@ -3,6 +3,7 @@
 
 exports.password = 'xxx-xxx-xxx' ;
 exports.username = 'xxx-xxx-xxx' ;
+exports.STTCustomizationid = 'xxxxxxxxx'
 
 //Credentials for Watson Text to Speech service
 
