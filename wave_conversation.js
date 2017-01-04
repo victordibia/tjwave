@@ -89,7 +89,7 @@ var recognizeparams = {
   content_type: 'audio/l16; rate=44100; channels=2',
   interim_results: true,
   smart_formatting: true,
-  customization_id: config.STTCustomizationid,
+#  customization_id: config.STTCustomizationid,
   model: 'en-US_BroadbandModel'  // Specify your language model here
 };
 
