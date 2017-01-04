@@ -89,8 +89,9 @@ var recognizeparams = {
   content_type: 'audio/l16; rate=44100; channels=2',
   interim_results: true,
   smart_formatting: true,
+  url: 'https://stream.watsonplatform.net/speech-to-text/api/v1/recognize?customization_id=361e3f70-d2be-11e6-9f7b-9dd7346ffae2'
 //  customization_id: config.STTCustomizationid,
-  model: 'en-US_BroadbandModel'  // Specify your language model here
+//  model: 'en-US_BroadbandModel'  // Specify your language model here
 };
 
 
