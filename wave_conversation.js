@@ -253,6 +253,7 @@ function waveArm(action) {
           setTimeout(function(){
             micInstance.resume();
             iswaving = false ;
+            setLED("white", 255)l
           }, 500);
         }
         return;
