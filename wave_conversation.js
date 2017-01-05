@@ -146,6 +146,7 @@ textStream.on('data', function(str) {
         console.log("intents : " , response.intents) ;
 
         if (intentconfidence > 0.5){
+          setLEDColor("green", Math.floor(intentconfidence * 255) ) ;
           if(matchedintent == "dance"){
             speak(conversation_response) ;
             dance();
@@ -160,6 +161,8 @@ textStream.on('data', function(str) {
             speak(conversation_response) ;
           }
 
+        }else{
+          setLEDColor("red", Math.floor(255) ) ;
         }
 
 
