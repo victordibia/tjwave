@@ -174,6 +174,7 @@ textStream.on('data', function(str) {
         */
 
       }else {
+        setLEDColor("red", 255);
         console.log("The response (output) text from your conversation is empty. Please check your conversation flow \n" + JSON.stringify( response))
       }
 
@@ -423,7 +424,7 @@ function processImage(imagefile){
     images_file: fs.createReadStream(imagefile)
   };
 
-  var resultstring = "The objects I see in the image are " ;
+  var resultstring = "The objects I see are " ;
   visual_recognition.classify(params, function(err, res) {
     if (err){
       console.log(err);
