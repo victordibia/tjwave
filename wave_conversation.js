@@ -27,7 +27,7 @@ var speech_to_text = watson.speech_to_text({
   username: config.STTUsername,
   password: config.STTPassword,
   version: config.version,
-  customization_id: config.STTCustomizationid
+  customization_id: config.STTCustomizationid,
 });
 
 var fs = require('fs');
@@ -453,13 +453,6 @@ var ws281x = require('rpi-ws281x-native');
 var NUM_LEDS = 1;        // Number of LEDs
 ws281x.init(NUM_LEDS);
 var color = new Uint32Array(NUM_LEDS);  // array that stores colors for leds
-setLEDColor("white", 255);
-
-function setLEDColor(randColor, brightness){
-  color[0] = colorPalette[randColor];
-  ws281x.render(color);
-  ws281x.setBrightness(brightness);
-}
 
 var colorPalette = {
   "red": 0x00ff00,
@@ -472,6 +465,16 @@ var colorPalette = {
   "aqua": 0xff00ff,
   "white": 0xffffff
 }
+
+setLEDColor("white", 255);
+
+function setLEDColor(randColor, brightness){
+  color[0] = colorPalette[randColor];
+  ws281x.render(color);
+  ws281x.setBrightness(brightness);
+}
+
+
 
 
 
