@@ -348,6 +348,7 @@ function findPeaks(pcmdata, samplerate, threshold){
     if (index >= pcmdata.length) {
       clearInterval(samplesound);
       console.log("finished sampling sound")
+      iswaving = false ;
       return;
     }
     for(var i = index; i < index + step ; i++){
