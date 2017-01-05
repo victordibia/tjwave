@@ -422,7 +422,10 @@ function processImage(imagefile){
         result.forEach(function(obj){
           //console.log(obj.class)
           console.log(obj)
-          resultstring = resultstring + ", " + obj.class
+          if (obj.score > 0.6){
+            resultstring = resultstring + ", " + obj.class
+          }
+
         })
         console.log(resultstring)
         speak(resultstring);
