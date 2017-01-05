@@ -90,7 +90,7 @@ var recognizeparams = {
   content_type: 'audio/l16; rate=44100; channels=2',
   interim_results: true,
   smart_formatting: true
-//  model: 'en-US_BroadbandModel'  // Specify your language model here
+  //  model: 'en-US_BroadbandModel'  // Specify your language model here
 };
 
 
@@ -121,60 +121,63 @@ textStream.setEncoding('utf8');
 textStream.on('data', function(str) {
   console.log(' ===== Speech to Text ===== : ' + str); // print the text once received
 
-    var res = str ;
-    console.log("msg sent to conversation:" ,res);
-    conversation.message({
-      workspace_id: config.ConWorkspace,
-      input: {'text': res},
-      context: conversationcontext
-    },  function(err, response) {
-      if (err) {
-        console.log('error:', err);
-      } else {
-        conversationcontext = response.context ; //update conversation context
-        conversation_response =  response.output.text[0]  ;
-        if (conversation_response != undefined ){
-          var params = {
-            text: response.output.text[0],
-            voice: config.voice,
-            accept: 'audio/wav'
-          };
+  var res = str ;
+  console.log("msg sent to conversation:" ,res);
+  conversation.message({
+    workspace_id: config.ConWorkspace,
+    input: {'text': res},
+    context: conversationcontext
+  },  function(err, response) {
+    if (err) {
+      console.log('error:', err);
+    } else {
+      conversationcontext = response.context ; //update conversation context
+      conversation_response =  response.output.text[0]  ;
+      if (conversation_response != undefined ){
+        var params = {
+          text: response.output.text[0],
+          voice: config.voice,
+          accept: 'audio/wav'
+        };
 
-          console.log("Result from conversation : " , conversation_response);
-          var matchedintent =  response.intents[0].intent ; // intent with the highest confidence
-          var intentconfidence = response.intents[0].confidence  ;
-          console.log("intents : " , response.intents) ;
+        console.log("Result from conversation : " , conversation_response);
+        var matchedintent =  response.intents[0].intent ; // intent with the highest confidence
+        var intentconfidence = response.intents[0].confidence  ;
+        console.log("intents : " , response.intents) ;
 
-          if (intentconfidence > 0.5){
-            if(matchedintent == "dance"){
-              speak(conversation_response) ;
-              dance();
-            }else if(matchedintent == "wave"){
-              speak(conversation_response) ;
-              waveArm("wave") ;
-            } else if(matchedintent == "see"){
-              launchVision();
-            } else {
-              speak(conversation_response) ;
-            }
-
+        if (intentconfidence > 0.5){
+          if(matchedintent == "dance"){
+            speak(conversation_response) ;
+            dance();
+          }else if(matchedintent == "wave"){
+            speak(conversation_response) ;
+            waveArm("wave") ;
+          } else if(matchedintent == "see"){
+            launchVision();
+          else if(matchedintent == "off_topic"){
+            //launchVision();
+          }
+          } else {
+            speak(conversation_response) ;
           }
 
-
-          /*********************************************************************
-          Step #5: Speak out the response
-          *********************************************************************
-          In this step, we text is sent out to Watsons Text to Speech service and result is piped to wave file.
-          Wave files are then played using alsa (native audio) tool.
-          */
-
-        }else {
-          console.log("The response (output) text from your conversation is empty. Please check your conversation flow \n" + JSON.stringify( response))
         }
 
+
+        /*********************************************************************
+        Step #5: Speak out the response
+        *********************************************************************
+        In this step, we text is sent out to Watsons Text to Speech service and result is piped to wave file.
+        Wave files are then played using alsa (native audio) tool.
+        */
+
+      }else {
+        console.log("The response (output) text from your conversation is empty. Please check your conversation flow \n" + JSON.stringify( response))
       }
 
-    })
+    }
+
+  })
 
 });
 
@@ -327,14 +330,14 @@ function dance(){
 
 var isplaying = false ;
 function playsound(soundfile){
-    micInstance.pause();
+  micInstance.pause();
   isplaying = true ;
   music = new Sound(soundfile);
   music.play();
   music.on('complete', function () {
     console.log('Done with music playback! .. resuming mic');
     isplaying = false;
-      micInstance.resume();
+    micInstance.resume();
   });
 }
 
@@ -390,15 +393,15 @@ var i = 0 ;
 */
 function launchVision(){
   var filename = 'photos/pic_'+i+'.jpg';
-   //var args = ['-vf', '-hf','-w', '960', '-h', '720', '-o', filename, '-t', '1'];
-   var args = ['-w', '960', '-h', '720', '-o', filename, '-t', '5'];
-   var spawn = child_process.spawn('raspistill', args);
-   spawn.on('exit', function(code) {
-     console.log('A photo is saved as '+filename+ ' with exit code, ' + code);
-     let timestamp = Date.now();
-     processImage(filename)
-     i++;
-   });
+  //var args = ['-vf', '-hf','-w', '960', '-h', '720', '-o', filename, '-t', '1'];
+  var args = ['-w', '960', '-h', '720', '-o', filename, '-t', '5'];
+  var spawn = child_process.spawn('raspistill', args);
+  spawn.on('exit', function(code) {
+    console.log('A photo is saved as '+filename+ ' with exit code, ' + code);
+    let timestamp = Date.now();
+    processImage(filename)
+    i++;
+  });
 }
 
 
@@ -436,6 +439,29 @@ function processImage(imagefile){
       }
     }
   });
+}
+
+var ws281x = require('rpi-ws281x-native');
+var NUM_LEDS = 1;        // Number of LEDs
+var color = new Uint32Array(NUM_LEDS);  // array that stores colors for leds
+
+
+function setLEDColor(randColor, brightness){
+  color[0] = colorPalette[randColor];
+  ws281x.render(color);
+  ws281x.setBrightness(brightness);
+}
+
+var colorPalette = {
+  "red": 0x00ff00,
+  "green": 0xff0000,
+  "blue": 0x0000ff,
+  "purple": 0x008080,
+  "yellow": 0xc1ff35,
+  "magenta": 0x00ffff,
+  "orange": 0xa5ff00,
+  "aqua": 0xff00ff,
+  "white": 0xffffff
 }
 
 
