@@ -26,7 +26,8 @@ var config = require('./config');  // gets our username and passwords from the c
 var speech_to_text = watson.speech_to_text({
   username: config.STTUsername,
   password: config.STTPassword,
-  version: config.version
+  version: config.version,
+  customization_id: config.STTCustomizationid,
 });
 
 var fs = require('fs');
@@ -88,9 +89,7 @@ The service converts the audio to text and saves the returned text in "textStrea
 var recognizeparams = {
   content_type: 'audio/l16; rate=44100; channels=2',
   interim_results: true,
-  smart_formatting: true,
-  url: 'https://stream.watsonplatform.net/speech-to-tetxt/api/v1/recognize?customization_id=361e3f70-d2be-11e6-9f7b-9dd7346ffae2'
-//  customization_id: config.STTCustomizationid,
+  smart_formatting: true
 //  model: 'en-US_BroadbandModel'  // Specify your language model here
 };
 
@@ -328,12 +327,14 @@ function dance(){
 
 var isplaying = false ;
 function playsound(soundfile){
+    micInstance.pause();
   isplaying = true ;
   music = new Sound(soundfile);
   music.play();
   music.on('complete', function () {
-    console.log('Done with music playback!');
+    console.log('Done with music playback! .. resuming mic');
     isplaying = false;
+      micInstance.resume();
   });
 }
 
