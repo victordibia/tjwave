@@ -154,9 +154,8 @@ textStream.on('data', function(str) {
             waveArm("wave") ;
           } else if(matchedintent == "see"){
             launchVision();
-          else if(matchedintent == "off_topic"){
+          }else if(matchedintent == "off_topic"){
             //launchVision();
-          }
           } else {
             speak(conversation_response) ;
           }
