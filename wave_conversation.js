@@ -344,7 +344,7 @@ function playsound(soundfile){
     setTimeout(function(){
       micInstance.resume();
       iswaving = false ;
-    }, 500);
+    }, 600);
   });
 }
 
