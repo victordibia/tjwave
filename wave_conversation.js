@@ -366,7 +366,7 @@ function findPeaks(pcmdata, samplerate, threshold){
       var colors = Object.keys(colorPalette);
       var randIdx = Math.floor(Math.random() * colors.length);
       var randColor = colors[randIdx];
-      setLEDColor( , (max-prevmax) * 255)
+      setLEDColor( randColor, (max-prevmax) * 255)
     }
     prevmax = max ; max = 0 ; index += step ;
   }, interval,pcmdata);
