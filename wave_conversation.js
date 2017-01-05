@@ -293,6 +293,7 @@ function speak(textstring){
         console.log('Done with playback! for ' + textstring + " iswaving " + iswaving);
         if (!iswaving && !isplaying) {
           micInstance.resume();
+          setLEDColor("white", 255)
         }
         isspeaking = false ;
       });
@@ -362,6 +363,10 @@ function findPeaks(pcmdata, samplerate, threshold){
     // Spot a significant increase? Wave Arm
     if(max-prevmax >= prevdiffthreshold){
       waveArm("dance");
+      var colors = Object.keys(colorPalette);
+      var randIdx = Math.floor(Math.random() * colors.length);
+      var randColor = colors[randIdx];
+      setLEDColor( , (max-prevmax) * 255)
     }
     prevmax = max ; max = 0 ; index += step ;
   }, interval,pcmdata);
@@ -445,7 +450,7 @@ function processImage(imagefile){
 
 var ws281x = require('rpi-ws281x-native');
 var NUM_LEDS = 1;        // Number of LEDs
-ws281x.init(NUM_LEDS);  
+ws281x.init(NUM_LEDS);
 var color = new Uint32Array(NUM_LEDS);  // array that stores colors for leds
 
 
