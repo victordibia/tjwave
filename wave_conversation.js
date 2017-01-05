@@ -341,7 +341,10 @@ function playsound(soundfile){
   music.on('complete', function () {
     console.log('Done with music playback! .. resuming mic');
     isplaying = false;
-    micInstance.resume();
+    setTimeout(function(){
+      micInstance.resume();
+      iswaving = false ;
+    }, 500);
   });
 }
 
