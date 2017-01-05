@@ -27,7 +27,7 @@ var speech_to_text = watson.speech_to_text({
   username: config.STTUsername,
   password: config.STTPassword,
   version: config.version,
-  customization_id: config.STTCustomizationid,
+  customization_id: config.STTCustomizationid
 });
 
 var fs = require('fs');

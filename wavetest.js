@@ -64,7 +64,6 @@ launcLED();
 function launcLED(){
   setInterval(function () {
     ws281x.init(NUM_LEDS);   // initialize LEDs
-    var color = new Uint32Array(NUM_LEDS);  // array that stores colors for leds
 
     var colors = Object.keys(colorPalette);
     var randIdx = Math.floor(Math.random() * colors.length);
@@ -72,7 +71,6 @@ function launcLED(){
     //console.log(randColor)
     color[0] = colorPalette[randColor];
     ws281x.render(color);
-
   }, lightinterval);
 }
 
