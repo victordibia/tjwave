@@ -355,6 +355,7 @@ function findPeaks(pcmdata, samplerate, threshold){
       clearInterval(samplesound);
       console.log("finished sampling sound")
       iswaving = false ;
+      setLEDColor("white", 255);
       return;
     }
     for(var i = index; i < index + step ; i++){
