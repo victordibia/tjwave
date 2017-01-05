@@ -163,6 +163,9 @@ textStream.on('data', function(str) {
 
         }else{
           setLEDColor("red", Math.floor(255) ) ;
+          setTimeout(function(){
+            setLEDColor("white", 255);
+          }, 800);
         }
 
 
