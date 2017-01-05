@@ -486,5 +486,6 @@ function setLEDColor(randColor, brightness){
 // ---- Stop PWM before exit
 process.on('SIGINT', function () {
   pigpio.terminate();
+  ws281x.reset();
   process.nextTick(function () { process.exit(0); });
 });
