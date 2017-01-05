@@ -453,7 +453,7 @@ var ws281x = require('rpi-ws281x-native');
 var NUM_LEDS = 1;        // Number of LEDs
 ws281x.init(NUM_LEDS);
 var color = new Uint32Array(NUM_LEDS);  // array that stores colors for leds
-
+setLEDColor("white", 255);
 
 function setLEDColor(randColor, brightness){
   color[0] = colorPalette[randColor];
