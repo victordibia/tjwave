@@ -430,7 +430,7 @@ function processImage(imagefile){
   var params = {
     images_file: fs.createReadStream(imagefile)
   };
-
+  var confidencethreshold = 0.5 ;
   var resultstring = "The objects I see are " ;
   visual_recognition.classify(params, function(err, res) {
     if (err){
@@ -441,7 +441,7 @@ function processImage(imagefile){
         result.forEach(function(obj){
           //console.log(obj.class)
           console.log(obj)
-          if (obj.score > 0.6){
+          if (obj.score > confidencethreshold){
             resultstring = resultstring + ", " + obj.class
           }
 
