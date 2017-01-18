@@ -116,6 +116,13 @@ There are a few things you can do .. and ways to take your robot forward!
 - Animate robot interactions using arm movements + lights (e.g wave when your robot speaks or laughs etc)
 - Correlate additional data to robot arm movements ... e.g control your robot arm using an app, a wearable/smartwatch etc.
 
+##update
+- I implemented a watson conversation based version where the conversation api is used to detect intent from a spoken command.
+  ```
+  sudo node wave_conversation.js
+  ```
+  You will need to set up your watson conversation flow and set up a workspace. More on that [here](http://www.instructables.com/id/Build-a-Talking-Robot-With-Watson-and-Raspberry-Pi/#step6)
+
 # Dependencies List
 
 - Watson Developer Cloud : [Watson Speech to Text](https://www.ibm.com/watson/developercloud/speech-to-text.html), [Watson Conversation](https://www.ibm.com/watson/developercloud/conversation.html), and [Watson Text to Speech](https://www.ibm.com/watson/developercloud/text-to-speech.html).
