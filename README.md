@@ -76,13 +76,13 @@ Set the audio output to your audio jack. For more audio channels, check the [con
 
 Create config.js
 
-    # On your local machine rename the config_sample.js file to config.js.
-    cp config_sample.js config.js
+    # On your local machine rename the config.default.js file to config.js.
+    cp config.default.js config.js
 
     Open config.js using your favorite text editor # (e.g // nano) and update it with your Bluemix credentials for the Watson services you use.
     nano config.js
 
-Note: do not add your credentials to the config_sample.js file.
+Note: do not add your credentials to the config.default.js file.
 
 Test Your Servo
 
