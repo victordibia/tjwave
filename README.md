@@ -8,7 +8,7 @@ Video [demo here](https://youtu.be/Wks9-9V7eMY).
 This module provides Node.js code to get control the arm on your TJ Bot via the servo motor. It uses [Watson Speech to Text](https://www.ibm.com/watson/developercloud/speech-to-text.html) to parse audio from the microphone, processes your commands (e.g command your bot to wave its arm, or dance to a song) and uses [Watson Text to Speech](https://www.ibm.com/watson/developercloud/text-to-speech.html) to "read" out a text response!
 
 **This is designed to run on a Pi with a servo motor attached. See [Wiring Servo](#wiring-your-servo-motor) for how to connect your servo motor**
-Before you start, it is recommended you become familiar with setting up your TJBot/Raspberry Pi by looking at [the instructions here.](http://www.instructables.com/member/TJBot/) 
+Before you start, it is recommended you become familiar with setting up your TJBot/Raspberry Pi by looking at [the instructions here.](http://www.instructables.com/member/TJBot/)
 
 
 ## How It Works
@@ -74,12 +74,15 @@ Set the audio output to your audio jack. For more audio channels, check the [con
     amixer cset numid=3 1    
     // This sets the audio output to option 1 which is your Pi's Audio Jack. Option 0 = Auto, Option 2 = HDMI. An alternative is to type sudo raspi-config and change the audio to 3.5mm audio jack.
 
-Rename and update config.js
+Create config.js
 
+    # On your local machine rename the config_sample.js file to config.js.
     cp config_sample.js config.js
+
+    Open config.js using your favorite text editor # (e.g // nano) and update it with your Bluemix credentials for the Watson services you use.
     nano config.js
 
-    # Rename the config_sample.js file to config.js. Open config.js using your favorite text editor # (e.g // nano) and update it with your Bluemix credentials for the Watson services you use.
+Note: do not add your credentials to the config_sample.js file.
 
 Test Your Servo
 
@@ -139,7 +142,7 @@ There are a few things you can do .. and ways to take your robot forward!
 
 - Watson Developer Cloud : [Watson Speech to Text](https://www.ibm.com/watson/developercloud/speech-to-text.html), [Watson Conversation](https://www.ibm.com/watson/developercloud/conversation.html), and [Watson Text to Speech](https://www.ibm.com/watson/developercloud/text-to-speech.html).
 - [mic](https://www.npmjs.com/package/mic) npm package : for reading audio input
-- [pigio](https://www.npmjs.com/package/pigpio) npm package : Fast (software) GPIO, PWM, servo control, state change notification, and interrupt handling on the Raspberry Pi.
+- [pigpio](https://www.npmjs.com/package/pigpio) npm package : Fast (software) GPIO, PWM, servo control, state change notification, and interrupt handling on the Raspberry Pi.
 - [web-audio-api](https://www.npmjs.com/package/web-audio-api) : implementation (partial) of the HTML5 web audio api, used to decode sound files.
 - [underscorejs](https://www.npmjs.com/package/underscore) : functional programming helper library for data manipulation.
 - [node-aplay](https://www.npmjs.com/package/node-aplay) : Simple nodejs wrapper for aplay.
