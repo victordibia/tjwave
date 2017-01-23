@@ -8,6 +8,7 @@ Video [demo here](https://youtu.be/Wks9-9V7eMY).
 This module provides Node.js code to get control the arm on your TJ Bot via the servo motor. It uses [Watson Speech to Text](https://www.ibm.com/watson/developercloud/speech-to-text.html) to parse audio from the microphone, processes your commands (e.g command your bot to wave its arm, or dance to a song) and uses [Watson Text to Speech](https://www.ibm.com/watson/developercloud/text-to-speech.html) to "read" out a text response!
 
 **This is designed to run on a Pi with a servo motor attached. See [Wiring Servo](#wiring-your-servo-motor) for how to connect your servo motor**
+Before you start, it is recommended you become familiar with setting up your TJBot/Raspberry Pi by looking at [the instructions here.](http://www.instructables.com/member/TJBot/) 
 
 
 ## How It Works
@@ -27,7 +28,7 @@ Note: You must have a servo motor connected to your Pi.
 - [Speaker with 3.5mm audio jack](https://www.amazon.com/gp/product/B014SOKX1E/ref=oh_aui_detailpage_o00_s00?ie=UTF8&psc=1)
 - [TJ Bot](http://ibm.biz/mytjbot) - You can 3D print or laser cut the robot
 - [Servo Motor] (https://www.amazon.com/gp/product/B00JJZXRR0/ref=oh_aui_detailpage_o03_s00?ie=UTF8&psc=1) -  TowerPro SG90 9G micro small servo motor
-- [RGB LED](https://www.adafruit.com/products/1734) - Optional led.
+- [Neopixel RGB LED](https://www.adafruit.com/products/1734) - Optional led.
 
 ##Wiring Your Servo Motor
 
@@ -49,10 +50,19 @@ Get the sample code (download or clone) and go to the application folder.
     git clone git@github.com:victordibia/tjwave.git
     cd tjwave
 
+Update your Raspberry Pi. Please see the guide [here to setup network and also update your nodejs] (http://www.instructables.com/id/Make-Your-Robot-Respond-to-Emotions-Using-Watson/step2/Set-up-your-Pi/) installation
+    sudo apt-get update
+    sudo apt-get upgrade
+    curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+    sudo apt-get install -y nodejs
+
+Note : Raspberry pi comes with a really old version of nodejs and npm (0.10), hence the need to upgrade it to the latest version.
+
 Install ALSA tools (required for recording audio on Raspberry Pi). (Some of the sample code integrate voice commands)
 
     sudo apt-get install alsa-base alsa-utils
     sudo apt-get install libasound2-dev
+
 
 Install Dependencies
 
@@ -76,7 +86,7 @@ Test Your Servo
 Before running the main code (voice + wave + dance etc), you may test your LED setup and your Servo motor to make sure the connections are correct and the library is properly installed. When you run the test module, it should turn your LED to different colors and wave your robot arm at intervals.
 
 
-    sudo node wave_test.js
+    sudo node wavetest.js
 
 
 If the LED does not light up, you can try moving the power from 3.3 to 5 volts.  If neither the 3.3v or 5v pins work, you will need a 1N4001 diode. The diode is inserted between the power pin of the LED (the shorter of the two middle pins) and the 5v pin on the Raspberry Pi.
