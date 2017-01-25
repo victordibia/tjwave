@@ -136,7 +136,12 @@ There are a few things you can do .. and ways to take your robot forward!
   ```
   - You will need to set up your watson conversation flow and set up a workspace. More on that [here](http://www.instructables.com/id/Build-a-Talking-Robot-With-Watson-and-Raspberry-Pi/#step6) .
   - You import sample conversation flow in the folder (workspace.json) to get you started. This creates intents for actions like "hello" , "see" , "wave" , "introduce" etc
-  Finally, this sample used both the audio and LED. These two hardware devices [are known to conflict](https://github.com/jgarff/rpi_ws281x#limitations) - a workaround is to disable onboard audio and use USB audio on your Pi.
+  - Finally, this sample (wave_conversation.js) uses both audio and LED. These two hardware devices [are known to conflict](https://github.com/jgarff/rpi_ws281x#limitations) - a workaround is to disable onboard audio and use USB audio on your Pi.
+
+## Contributing and Issues
+
+To contribute, please feel free to fork the repo and send in a pull request.
+Also, if you find any issues (bugs, etc) or have questions, please feel free to open up a [github issue](https://github.com/victordibia/tjwave/issues/new).
 
 # Dependencies List
 
