@@ -1,8 +1,8 @@
 // Please replace the username and password with your bluemix credentials
 
 
-exports.STTpassword = ''; // Speech to text password
-exports.STTusername = ''; // Speech to text username
+exports.STTPassword = ''; // Speech to text password
+exports.STTUsername = ''; // Speech to text username
 exports.STTCustomizationid = '' // Speech to text Customization id (if you are using a customized language model)
 
 //Credentials for Watson Text to Speech service
