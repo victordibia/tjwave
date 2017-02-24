@@ -1,3 +1,8 @@
+/**
+ * Restart service when there is an error with speech to text
+ * Tip : call setupMic whenever there is an error.
+ */
+
 var watson = require('watson-developer-cloud');
 var config = require('./config'); // gets our username and passwords from the config.js files
 var speech_to_text = watson.speech_to_text({
@@ -24,18 +29,14 @@ var micInstance = mic({
 });
 var micInputStream = micInstance.getAudioStream();
 
-micInputStream.on('data', function(data) {
-    //console.log("Recieved Input Stream: " + data.length);
-});
-
+micInputStream.on('data', function(data) {});
 micInputStream.on('error', function(err) {
     console.log("Error in Input Stream: " + err);
 });
 
-micInputStream.on('silence', function() {
-    // detect silence.
-});
+micInputStream.on('silence', function() {});
 micInstance.start();
+
 console.log("TJBot is listening, you may speak now.");
 
 /************************************************************************
