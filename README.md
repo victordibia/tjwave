@@ -126,6 +126,22 @@ There are known conflicts between using hardware PWM pin on a pi and audio, henc
 
 If audio is needed, you can use a USB audio device instead.
 
+
+# App Ends after saying "TJBot is listening"
+
+Usually this occurs microphone setup fails. A solution is to explicitly specify the microphone device id when instantiating mic. To find out the device id, in command line type
+
+```
+  arecord -l       //should show things like card 0, card 1, etc
+```
+
+now edit your code file where you instantiate mic to reflect the device id. For example if your microphone is labelled `card 0` from the command above, device id is `plughw:0,0` , and if `card 1`, `plughw:1,0`
+
+```
+var micInstance = mic({ 'rate': '44100', 'channels': '2', 'debug': false, 'exitOnSilence': 6, 'device': 'plughw:0,0' });  // card 0
+
+`
+
 ## Whats Next
 
 There are a few things you can do .. and ways to take your robot forward!
