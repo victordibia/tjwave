@@ -63,6 +63,9 @@ Install ALSA tools (required for recording audio on Raspberry Pi). (Some of the 
     sudo apt-get install alsa-base alsa-utils
     sudo apt-get install libasound2-dev
 
+Install pigpio . This is the software pwm library used to control the servo motor.
+
+    sudo apt-get install pigpio 
 
 Install Dependencies
 
@@ -119,7 +122,7 @@ Sample utterances are
 
 For the dance command, your robot processes wav files in the sounds folder. Please ensure you have a .wav file there and set that as your sound file.
 
-# Known Issues
+# Known Issue : LED Audio Conflict
 There are known conflicts between using hardware PWM pin on a pi and audio, hence you cannot use both at the same time. For example, our LED library (ws281x) uses hardware PWM and will not work correctly when audio is enabled. To disable audio, you will need to blacklist the Broadcom audio kernel module by creating a file /etc/modprobe.d/snd-blacklist.conf with
 
     blacklist snd_bcm2835
@@ -127,12 +130,12 @@ There are known conflicts between using hardware PWM pin on a pi and audio, henc
 If audio is needed, you can use a USB audio device instead.
 
 
-# App Ends after saying "TJBot is listening"
+# Known Issue: App Ends after saying "TJBot is listening"
 
-Usually this occurs microphone setup fails. A solution is to explicitly specify the microphone device id when instantiating mic. To find out the device id, in command line type
+Usually this occurs microphone setup fails. A solution is to explicitly specify your microphone device id when instantiating mic. To find out your device id, in command line type
 
 ```
-  arecord -l       //should show things like card 0, card 1, etc
+arecord -l       //should show things like card 0, card 1, etc
 ```
 
 now edit your code file where you instantiate mic to reflect the device id. For example if your microphone is labelled `card 0` from the command above, device id is `plughw:0,0` , and if `card 1`, `plughw:1,0`
@@ -140,7 +143,7 @@ now edit your code file where you instantiate mic to reflect the device id. For 
 ```
 var micInstance = mic({ 'rate': '44100', 'channels': '2', 'debug': false, 'exitOnSilence': 6, 'device': 'plughw:0,0' });  // card 0
 
-`
+```
 
 ## Whats Next
 
